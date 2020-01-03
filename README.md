@@ -14,6 +14,7 @@ The application's folder architecture design information.
 +-- app                         '	Web App.
 +-- assets                      '	Design assets.
 |   +-- lib                     '	Design Libraries.
+|   |   +-- cybotranik-wui      '   Website html User Interface.
 |   +-- theme                   '	Design theme kütüphaneleri.
 |   |   +-- css                 '	Design style.
 |   |   +-- js                  '	Design script.
