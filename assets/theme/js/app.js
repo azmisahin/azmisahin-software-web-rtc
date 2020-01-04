@@ -21,10 +21,10 @@
 function Application() { }
 
 // Video Html Element
-const video = document.querySelector('video')
+const video = document.querySelector('#video-me')
 
 // Audio Html Element
-const audio = document.querySelector('audio')
+const audio = document.querySelector('#audio-me')
 
 /**
  * Media Stream Contraints
@@ -61,6 +61,28 @@ Application.prototype.Preview = function () {
         .getUserMedia(this.Contraints)
         .then(this.setStream)
         .catch(this.error);
+}
+
+/**
+ * Add Remote Client Stream
+ */
+Application.prototype.Remote = function(id){
+    var html = "";
+    html += "<section class='remote'>";
+    html +="<div class='col'>";
+    html +="<video id='remote-"+ id +"' autoplay playsinline></video>";
+    html +="<audio id='remote-"+ id +"'></audio>";
+    html +="<header>";
+    html +="<h3>"+ id +"</h3>";
+    html +="</header>";
+    html +="</div>";
+    html +="</section>";
+    html +="";
+
+    var main = document.querySelector('main');
+    let div = document.createElement('div');
+    div.innerHTML = html;
+    main.appendChild(div);
 }
 
 /**

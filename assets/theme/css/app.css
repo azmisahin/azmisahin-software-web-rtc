@@ -25,19 +25,28 @@ body, html {
   background-repeat: no-repeat;
   background-size: cover;
 }
-
+.center {
+  margin-left: auto;
+  margin-right: auto;
+  width: 99%;
+  padding: 10px;
+}
 /*
 Web Real-Time Communications
 */
+main {background: none;}
+main section{float: left;}
 video {
     max-width: 100%;
     width: 320px;
+    height: 240px;
+    background: aliceblue;
   }
 
   video{
     filter: drop-shadow(2px 4px 6px black) blur(10px) opacity(0.5);
   }
-  
+
 /* Brand */
 .float-right{
   float: right;
