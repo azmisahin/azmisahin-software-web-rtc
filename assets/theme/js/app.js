@@ -20,30 +20,47 @@
  * */
 function Application() { }
 
+// Video Html Element
+const video = document.querySelector('video')
+
+// Audio Html Element
+const audio = document.querySelector('audio')
+
+/**
+ * Media Stream Contraints
+ */
+Application.prototype.Contraints = {
+    video: true,
+    audio: true,
+}
+
+/**
+ * Media Stream Set
+ */
+Application.prototype.setStream = function (source) {
+
+    video.srcObject = source;
+    audio.srcObject = source;
+}
+
+/**
+ * An Error
+ */
+Application.prototype.Error = function (e) {
+    console.log(e);
+}
+
 /**
  * App Preview
  */
-Application.prototype.Preview = function (videoElement, audioElement) {
+Application.prototype.Preview = function () {
 
-    // Request Video and Audio
-    function requestVideoAndAudio() {
-        navigator.getUserMedia({ video: true, audio: true },
-            getUserMediaOkCallback, getUserMediaFailedCallback);
-    }
-
-    // Get User Media Failed Call Back
-    function getUserMediaFailedCallback(error) {
-        alert("User media request denied with error code " + error.code);
-    }
-
-    // Get User Media Ok Callback
-    function getUserMediaOkCallback(stream) {
-        document.getElementById(videoElement).srcObject = stream;
-        document.getElementById(audioElement).srcObject = stream;
-    }
-
-    // Reuest Video And Audio Start
-    requestVideoAndAudio();
+    // Start
+    navigator
+        .mediaDevices
+        .getUserMedia(this.Contraints)
+        .then(this.setStream)
+        .catch(this.error);
 }
 
 /**
@@ -51,7 +68,7 @@ Application.prototype.Preview = function (videoElement, audioElement) {
  */
 Application.prototype.Start = function () {
 
-    this.Preview("video", "audio");
+    this.Preview();
 }
 
 /**

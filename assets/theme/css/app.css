@@ -7,3 +7,46 @@
     * Licence (https://azmisahin.gitlab.io/LICENSE)
     ████████████████████████████████████████████████████████████████████████████████████████████████████
 */
+
+/* Application Design */
+body, html {
+  height: 100%;
+  color: white;
+}
+
+.bg{
+  background-image: url(../img/bg.jpg);
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/*
+Web Real-Time Communications
+*/
+video {
+    max-width: 100%;
+    width: 320px;
+  }
+
+  video{
+    filter: drop-shadow(2px 4px 6px black) blur(10px) opacity(0.5);
+  }
+  
+/* Brand */
+.float-right{
+  float: right;
+}
+  .footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    color: white;
+    text-align: center;
+  }

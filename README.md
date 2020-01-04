@@ -6,6 +6,8 @@ It is a web application that realizes Real Time Communication requirements throu
 * Voice call or voice transfer.
 * Text interview or text transfer.
 
+![Preview](assets/theme/preview.png)
+
 ## Project Structure.
 
 The application's folder architecture design information.
