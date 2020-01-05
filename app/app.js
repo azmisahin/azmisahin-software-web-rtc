@@ -26,8 +26,7 @@ function Application() { }
  * 
  * @param {string} text Text or Variable
  */
-function trace(text) {
-    text = text.trim();
+function trace(text) {   
     const now = (window.performance.now() / 1000).toFixed(3);
     console.log(now, text);
 }

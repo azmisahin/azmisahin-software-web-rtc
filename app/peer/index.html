@@ -105,12 +105,24 @@
 
   <!-- Module -->
   <script type="text/javascript" src="js/peer.js?v=1.0.0"></script>
+  <script type="text/javascript" src="../stream/js/stream.js?v=1.0.0"></script>
   <script>
-      // Application
-      var app = new Application();
+    // Application
+    var app = new Application();
 
-      app.addClientScreen("jack");
-      app.addClientScreen("jessica");
+    app.addClientScreen("jack");
+    app.addClientScreen("jessica");
+
+    // Video Html Element
+    const videoJack = document.querySelector('#video-jack')
+    const audioJack = document.querySelector('#audio-Jack')
+    // Audio Html Element
+    const videojessica = document.querySelector('#video-jessica')
+    const audiojessica = document.querySelector('#audio-jessica')
+
+    // App Stream Strat
+    app.Stream(videojessica, audiojessica);
+    app.Stream(videoJack, audioJack);
   </script>
 </body>
 
