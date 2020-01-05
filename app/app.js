@@ -8,6 +8,8 @@
     ████████████████████████████████████████████████████████████████████████████████████████████████████
 */
 
+'use strict';
+
 /**
  * Azmi ŞAHİN Web Application
  *
@@ -20,11 +22,50 @@
  * */
 function Application() { }
 
-// Video Html Element
-const video = document.querySelector('#video-me')
+/**
+ * 
+ * @param {string} text Text or Variable
+ */
+function trace(text) {
+    text = text.trim();
+    const now = (window.performance.now() / 1000).toFixed(3);
+    console.log(now, text);
+}
 
-// Audio Html Element
-const audio = document.querySelector('#audio-me')
+/**
+ * An Error
+ */
+Application.prototype.Error = function (e) {
+    trace("Error");
+    trace(e);
+}
+
+/**
+ * Add Remote Client Stream Screen
+ */
+Application.prototype.addClientScreen = function (id) {
+
+    // Generate Stream Screen Html Element
+    var html = "";
+    html += "<section class='remote'>";
+    html += "<div class='col'>";
+    html += "<video id='remote-" + id + "' autoplay playsinline></video>";
+    html += "<audio id='remote-" + id + "'></audio>";
+    html += "<header>";
+    html += "<h3>" + id + "</h3>";
+    html += "</header>";
+    html += "</div>";
+    html += "</section>";
+    html += "";
+
+    // Add a new Client
+    var main = document.querySelector('main');
+    let div = document.createElement('div');
+    div.innerHTML = html;
+    main.append(div);
+
+    trace("Stream Screen:" + id);
+}
 
 /**
  * Media Stream Contraints
@@ -33,71 +74,3 @@ Application.prototype.Contraints = {
     video: true,
     audio: true,
 }
-
-/**
- * Media Stream Set
- */
-Application.prototype.setStream = function (source) {
-
-    video.srcObject = source;
-    audio.srcObject = source;
-}
-
-/**
- * An Error
- */
-Application.prototype.Error = function (e) {
-    console.log(e);
-}
-
-/**
- * App Preview
- */
-Application.prototype.Preview = function () {
-
-    // Start
-    navigator
-        .mediaDevices
-        .getUserMedia(this.Contraints)
-        .then(this.setStream)
-        .catch(this.error);
-}
-
-/**
- * Add Remote Client Stream
- */
-Application.prototype.Remote = function(id){
-    var html = "";
-    html += "<section class='remote'>";
-    html +="<div class='col'>";
-    html +="<video id='remote-"+ id +"' autoplay playsinline></video>";
-    html +="<audio id='remote-"+ id +"'></audio>";
-    html +="<header>";
-    html +="<h3>"+ id +"</h3>";
-    html +="</header>";
-    html +="</div>";
-    html +="</section>";
-    html +="";
-
-    // Add a new Client
-    var main = document.querySelector('main');
-    let div = document.createElement('div');
-    div.innerHTML = html;
-    main.append(div);
-}
-
-/**
- * Application Start
- */
-Application.prototype.Start = function () {
-
-    this.Preview();
-}
-
-/**
- * Application
- */
-var app = new Application();
-
-// Start
-app.Start();
