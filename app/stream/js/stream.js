@@ -11,7 +11,7 @@ Application.prototype.Stream = function (video, audio) {
         video.srcObject = source;
         audio.srcObject = source;
 
-        trace("Stream");
+        trace("Stream Start:" + source.id);
     }
 
     // Start

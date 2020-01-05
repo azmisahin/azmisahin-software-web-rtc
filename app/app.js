@@ -47,10 +47,10 @@ Application.prototype.addClientScreen = function (id) {
 
     // Generate Stream Screen Html Element
     var html = "";
-    html += "<section class='remote'>";
+    html += "<section class='screen'>";
     html += "<div class='col'>";
-    html += "<video id='remote-" + id + "' autoplay playsinline></video>";
-    html += "<audio id='remote-" + id + "'></audio>";
+    html += "<video id='video-" + id + "' autoplay playsinline></video>";
+    html += "<audio id='audio-" + id + "'></audio>";
     html += "<header>";
     html += "<h3>" + id + "</h3>";
     html += "</header>";

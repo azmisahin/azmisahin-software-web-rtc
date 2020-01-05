@@ -84,13 +84,7 @@
     </p>
   </section>
   <main class="row center">
-    <section id="preview">
-      <video id="video-me" autoplay playsinline></video>
-      <audio id="audio-me"></audio>
-      <header>
-        <h3>Me</h3>
-      </header>
-    </section>
+
   </main>
   <footer class="footer">
     <figure class="width-5 float-right">
@@ -113,14 +107,21 @@
   <!-- Module -->
   <script type="text/javascript" src="app/stream/js/stream.js?v=1.0.0"></script>
   <script>
+
+    // Application 
+    var app = new Application();
+
+    // Add Client Screen
+    app.addClientScreen('me');
+
     // Video Html Element
     const video = document.querySelector('#video-me')
 
     // Audio Html Element
     const audio = document.querySelector('#audio-me')
 
-    // Stream Strat 
-    new Application().Stream(video, audio);
+    // App Stream Strat
+    app.Stream(video, audio);
   </script>
 
 </body>
