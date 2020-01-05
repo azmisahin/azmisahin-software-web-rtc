@@ -79,10 +79,11 @@ Application.prototype.Remote = function(id){
     html +="</section>";
     html +="";
 
+    // Add a new Client
     var main = document.querySelector('main');
     let div = document.createElement('div');
     div.innerHTML = html;
-    main.appendChild(div);
+    main.append(div);
 }
 
 /**
