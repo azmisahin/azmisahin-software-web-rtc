@@ -35,7 +35,9 @@ function trace(text) {
  * An Error
  */
 Application.prototype.Error = function (e) {
+
     trace("Error    :   " + e);
+    trace(e.stack);
 }
 
 /**

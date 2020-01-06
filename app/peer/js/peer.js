@@ -15,6 +15,14 @@ Application.prototype.PeerConnection = function (mediaStream) {
     // TURN ( Traversal Using Relays aoound NAT )   ->  Server ( Tempory Client Server )
     let rtcConfiguration;
 
+    // Ref: https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createOffer
+    let rtcOfferOptions = {
+        iceRestart: false,
+        offerToReceiveAudio: false,
+        offerToReceiveVideo: true,
+        voiceActivityDetection: true
+    };
+
     // Video Conferance
     let localPeerConnection;
 
@@ -74,4 +82,19 @@ Application.prototype.PeerConnection = function (mediaStream) {
     localPeerConnection.addStream(mediaStream);
     trace("Peer     :   " + mediaStream.id);
 
+    // Session
+    localPeerConnection.createOffer(rtcOfferOptions)
+        .then(rtcSessionDescriptionInit)
+        .catch(rtcSessionDescriptionError);
+
+    // Set Session Description
+    function rtcSessionDescriptionInit(description) {
+        trace("Session  :   " + description.type);
+        //trace("SDP      :   " + description.sdp);
+    }
+
+    // Set Session Error
+    function rtcSessionDescriptionError(error) {
+        trace("Session  :   " + error);
+    }
 }
