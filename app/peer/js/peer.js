@@ -23,7 +23,7 @@ Application.prototype.PeerConnection = function (mediaStream) {
 
     // When a candidate message is received.
     function iceCandidateEvent(event) {
-        
+
         // A candidate message Event. 
         trace("iceCandidate             :   " + event);
 
@@ -35,10 +35,28 @@ Application.prototype.PeerConnection = function (mediaStream) {
             // interactive Connectivity Establishment
             trace("ice  :   " + candidateInitDict);
 
-            // New RTC Ice Candidate
-            const newIceCandidate = new RTCIceCandidate(candidateInitDict);
-
+            // Add to peer candidate.
+            addToPeerCandidate(targetConnection, candidateInitDict)
         }
+    }
+
+    // Add to peer candidate.
+    function addToPeerCandidate(peerConnection, iceCandidate) {
+
+        // New RTC Ice Candidate
+        const newIceCandidate = new RTCIceCandidate(iceCandidate);
+
+        // Other Peer Info
+        const otherPeer = peerConnection;
+
+        // Call
+        otherPeer.addIceCandidate(newIceCandidate)
+            .then(() => {
+                trace("Connection   :   " + "Success " + peerConnection);
+            })
+            .catch((error) => {
+                trace("Error        :   " + "addToPeerCandidate " + error)
+            })
     }
 
     // Interactive Connectivity Establishment Device Candidate
