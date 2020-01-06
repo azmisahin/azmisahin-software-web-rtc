@@ -89,6 +89,7 @@ Application.prototype.PeerConnection = function (mediaStream) {
 
     // Set Session Description
     function rtcSessionDescriptionInit(description) {
+        SDP = description.sdp;
         trace("Session  :   " + description.type);
         //trace("SDP      :   " + description.sdp);
     }
@@ -98,3 +99,5 @@ Application.prototype.PeerConnection = function (mediaStream) {
         trace("Session  :   " + error);
     }
 }
+
+let SDP;
