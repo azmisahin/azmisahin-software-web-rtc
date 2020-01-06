@@ -121,7 +121,10 @@
     const audio = document.querySelector('#audio-me')
 
     // App Stream Strat
-    app.Stream(video, audio);
+    app.Stream(video, audio, function (mediaStream) {
+      // Trace
+      // trace(mediaStream)
+    });
   </script>
 
 </body>

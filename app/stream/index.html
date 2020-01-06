@@ -19,8 +19,7 @@
 
   <!-- Site Information -->
   <title>Web Real-Time Communications</title>
-  <meta name="description"
-    content="Peer Connection." />
+  <meta name="description" content="Peer Connection." />
   <meta name="keywords" content="web, application, video, audio, file, transfer, app, browser." />
 
   <!-- The Open Graph protocol -->
@@ -84,7 +83,7 @@
     </p>
   </section>
   <main class="row center">
-  
+
   </main>
   <footer class="footer">
     <figure class="width-5 float-right">
@@ -120,7 +119,10 @@
     const audio = document.querySelector('#audio-me')
 
     // App Stream Strat
-    app.Stream(video, audio);
+    app.Stream(video, audio, function (mediaStream) {
+      // Trace
+      // trace(mediaStream)
+    });
   </script>
 
 </body>

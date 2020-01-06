@@ -110,19 +110,26 @@
     // Application
     var app = new Application();
 
+    // Add Client Screen
     app.addClientScreen("jack");
-    app.addClientScreen("jessica");
 
     // Video Html Element
-    const videoJack = document.querySelector('#video-jack')
-    const audioJack = document.querySelector('#audio-Jack')
+    const video = document.querySelector('#video-jack')
+
     // Audio Html Element
-    const videojessica = document.querySelector('#video-jessica')
-    const audiojessica = document.querySelector('#audio-jessica')
+    const audio = document.querySelector('#audio-jack')
 
     // App Stream Strat
-    app.Stream(videojessica, audiojessica);
-    app.Stream(videoJack, audioJack);
+    app.Stream(video, audio, function (mediaStream) {
+
+      // Trace
+      // trace(mediaStream)
+
+      // Remote Device Connection Wiait
+      app.PeerConnection(mediaStream);
+    });
+
+
   </script>
 </body>
 

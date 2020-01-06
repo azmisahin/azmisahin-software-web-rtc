@@ -26,7 +26,7 @@ function Application() { }
  * 
  * @param {string} text Text or Variable
  */
-function trace(text) {   
+function trace(text) {
     const now = (window.performance.now() / 1000).toFixed(3);
     console.log(now, text);
 }
@@ -35,8 +35,7 @@ function trace(text) {
  * An Error
  */
 Application.prototype.Error = function (e) {
-    trace("Error");
-    trace(e);
+    trace("Error    :   " + e);
 }
 
 /**
@@ -63,7 +62,7 @@ Application.prototype.addClientScreen = function (id) {
     div.innerHTML = html;
     main.append(div);
 
-    trace("Stream Screen:" + id);
+    trace("Screen   :   " + id);
 }
 
 /**
