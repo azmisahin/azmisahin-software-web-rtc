@@ -21,9 +21,24 @@ Application.prototype.PeerConnection = function (mediaStream) {
     // New Conferance
     localPeerConnection = new RTCPeerConnection(rtcConfiguration);
 
-    // Remote device candidate
+    // When a candidate message is received.
     function iceCandidateEvent(event) {
+        
+        // A candidate message Event. 
         trace("iceCandidate             :   " + event);
+
+        const targetConnection = event.target;
+        const candidateInitDict = event.candidate;
+
+        if (candidateInitDict) {
+
+            // interactive Connectivity Establishment
+            trace("ice  :   " + candidateInitDict);
+
+            // New RTC Ice Candidate
+            const newIceCandidate = new RTCIceCandidate(candidateInitDict);
+
+        }
     }
 
     // Interactive Connectivity Establishment Device Candidate
