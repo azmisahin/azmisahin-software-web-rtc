@@ -115,6 +115,13 @@
     // Add Client Data Screen
     app.addDataScreen('remote');
 
+    // Get Client Screen
+    const dataMe = document.querySelector('#data-me')
+    const dataRemote = document.querySelector('#data-remote')
+
+    // Data Channel Start
+    app.DataChannel(dataMe, dataRemote);
+
   </script>
 </body>
 
