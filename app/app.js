@@ -43,7 +43,7 @@ Application.prototype.Error = function (e) {
 /**
  * Add Remote Client Stream Screen
  */
-Application.prototype.addClientScreen = function (id) {
+Application.prototype.addStreamScreen = function (id) {
 
     // Generate Stream Screen Html Element
     var html = "";
@@ -64,7 +64,33 @@ Application.prototype.addClientScreen = function (id) {
     div.innerHTML = html;
     main.append(div);
 
-    trace("Screen   :   " + id);
+    trace("Stream Screen   :   " + id);
+}
+
+/**
+ * Add Remote Client Data Screen
+ */
+Application.prototype.addDataScreen = function (id) {
+
+    // Generate Stream Screen Html Element
+    var html = "";
+    html += "<section class='screen'>";
+    html += "<div class='col'>";
+    html += "<textarea id='data-" + id + "' placeholder='Enter some text and press ENTER' rows='5' cols='50' ></textarea>";
+    html += "<header>";
+    html += "<h3>" + id + "</h3>";
+    html += "</header>";
+    html += "</div>";
+    html += "</section>";
+    html += "";
+
+    // Add a new Client
+    var main = document.querySelector('main');
+    let div = document.createElement('div');
+    div.innerHTML = html;
+    main.append(div);
+
+    trace("Data Screen   :   " + id);
 }
 
 /**

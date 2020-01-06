@@ -79,7 +79,7 @@
       <h1>Web Real-Time Communications</h1>
     </header>
     <p>
-      Peer Connection
+      Data Channel
     </p>
   </section>
   <main class="row center">
@@ -104,30 +104,16 @@
   <script type="text/javascript" src="../app.js?v=1.0.0"></script>
 
   <!-- Module -->
-  <script type="text/javascript" src="js/peer.js?v=1.0.0"></script>
-  <script type="text/javascript" src="../stream/js/stream.js?v=1.0.0"></script>
+  <script type="text/javascript" src="js/data.js?v=1.0.0"></script>
   <script>
     // Application
     var app = new Application();
 
-    // Add Client Screen
-    app.addStreamScreen("jack");
+    // Add Client Data Screen
+    app.addDataScreen('me');
 
-    // Video Html Element
-    const video = document.querySelector('#video-jack')
-
-    // Audio Html Element
-    const audio = document.querySelector('#audio-jack')
-
-    // App Stream Strat
-    app.Stream(video, audio, function (mediaStream) {
-
-      // Trace
-      // trace(mediaStream)
-
-      // Remote Device Connection Wiait
-      app.PeerConnection(mediaStream);
-    });
+    // Add Client Data Screen
+    app.addDataScreen('remote');
 
   </script>
 </body>
