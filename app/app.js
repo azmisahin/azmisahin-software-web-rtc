@@ -94,6 +94,55 @@ Application.prototype.addDataScreen = function (id) {
 }
 
 /**
+ * Add Talk Screen
+ */
+Application.prototype.addTalkScreen = function (id) {
+
+    // Generate Stream Screen Html Element
+    var html = "";
+    html += "<section class='screen' id='" + id + "'>";
+    html += "<div class='col'>";
+    html += "<header>";
+    html += "<h3>Talk</h3>";
+    html += "</header>";
+    html += "</section>";
+    html += "";
+
+    // Add a new Client
+    var main = document.querySelector('main');
+    let div = document.createElement('div');
+    div.innerHTML = html;
+    main.append(div);
+
+    talkScreen = document.querySelector('#' + id);
+
+    trace("Talk Screen   :   " + id);
+}
+
+var talkScreen;
+
+/**
+ * Add Talk Message
+ */
+Application.prototype.addTalkMessage = function (type, message) {
+
+    // Generate Mesage Html Element
+    var html = "";
+    html += "<div class='row'>";
+    html += "<div class='message'>";
+    html += "<span class='talk " + type + "'>" + message + "</span>";
+    html += "</div>";
+    html += "</div>";
+    html += "";
+
+    // Add a new Message
+    let div = document.createElement('div');
+    div.innerHTML = html;
+    talkScreen.append(div);
+    trace("Talk Message :   " + type + " : " + message);
+}
+
+/**
  * Media Stream Contraints
  */
 Application.prototype.Contraints = {

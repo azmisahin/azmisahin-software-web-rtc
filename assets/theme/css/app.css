@@ -59,3 +59,37 @@ video {
     color: white;
     text-align: center;
   }
+
+  /* Talks */
+  #talks {
+    min-width: 500px;        
+    overflow-y: auto; height:150px;
+    background: #e0e6e478;
+    padding: 1%;
+  }
+
+  .me {
+    float: left;
+    background: #f0f8ff;
+  }
+
+  .remote {
+    float: right;
+    background: #dcf8c6;
+  }
+  .talk {
+    padding: 5px;
+    padding-right: 15px;
+    margin: 1%;
+    border-radius: 7.5px;
+    color: black;
+    border: solid 1px gray;
+  }
+
+  .message {
+    padding: 1px;
+  }
+
+  .row {
+    float: left;
+  }

@@ -4,7 +4,7 @@
  * @param {HTMLElement} me Element
  * @param {HTMLElement} remote Element
  */
-Application.prototype.DataChannel = function (me, remote) {
+Application.prototype.DataChannel = function (me, remote, callback) {
 
     var localConnection;
     var sendChannel
@@ -31,10 +31,9 @@ Application.prototype.DataChannel = function (me, remote) {
         remoteConnection = new RTCPeerConnection(servers, pcConstraint);
         remoteConnection.ondatachannel = function (event) {
             receiveChannel = event.channel;
-            receiveChannel.onmessage = function (event) {
-                trace('Received     :   ' + event.data);
-                remote.value = event.data;
-                me.value = '';
+            receiveChannel.onmessage = function (e) {
+                trace('Received     :   ' + e.data);
+                callback("receive", e.data, e)
             };
         };
 
@@ -61,23 +60,38 @@ Application.prototype.DataChannel = function (me, remote) {
     }
 
     // Send Data
-    function sendData() {
-        var data = me.value;
+    function sendPeer(who) {
+        // Html Value
+        var value = who.value;
+        who.value = '';
+        var jsonData = { from: who.id, message: value }
+
+        // ref: https://developer.mozilla.org/en-US/docs/Web/API/RTCDataChannel/send
+        // data send stringify
+        var data = JSON.stringify(jsonData)
+
+        // Send Chanel Data
         sendChannel.send(data);
-        trace("Send Data    :   " + data);
+
+        // Trace
+        trace("Send Data    :   ");
+        trace(data);
     }
 
     // Me Key Press
-    me.onkeypress = function () {
-        var key = window.event.keyCode;
+    me.onkeypress = keyPress;
 
+    // Remote Key Press
+    remote.onkeypress = keyPress;
+
+    // Keypress and Send
+    function keyPress() {
+        var key = window.event.keyCode;
         // If the user has pressed enter
         if (key === 13) {
-
-            sendData();
+            sendPeer(this);
             return false;
         }
-
     }
 
     createConnection();

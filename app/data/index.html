@@ -83,7 +83,6 @@
     </p>
   </section>
   <main class="row center">
-
   </main>
   <footer class="footer">
     <figure class="width-5 float-right">
@@ -112,6 +111,9 @@
     // Add Client Data Screen
     app.addDataScreen('me');
 
+    // Add Client Talk Screen
+    app.addTalkScreen("talks");
+
     // Add Client Data Screen
     app.addDataScreen('remote');
 
@@ -120,7 +122,24 @@
     const dataRemote = document.querySelector('#data-remote')
 
     // Data Channel Start
-    app.DataChannel(dataMe, dataRemote);
+    app.DataChannel(dataMe, dataRemote, onDataMessage);
+
+    // Data Message Receive
+    function onDataMessage(type, data, event) {
+      var jsonData = JSON.parse(data);
+
+      var types = jsonData.from.split("-");
+      app.addTalkMessage(types[1], jsonData.message);
+
+      // Every Message Call Auto Scrool
+      autoScrool();
+    }
+
+    // Auto Scrool
+    function autoScrool() {
+      var objDiv = document.getElementById("talks");
+      objDiv.scrollTop = objDiv.scrollHeight;
+    }
 
   </script>
 </body>
