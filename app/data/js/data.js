@@ -6,61 +6,91 @@
  */
 Application.prototype.DataChannel = function (me, remote, callback) {
 
-    var localConnection;
-    var sendChannel
-    var remoteConnection;
+    // Data Channel Remote RTC Connection
+    var remotePeerConnection;
+
+    // RTC Remote Data Channel
+    var rtcRemoteDataChannel;
 
     // Connection Start
     function createConnection() {
-        var servers = null;
-        pcConstraint = null;
-        dataConstraint = null;
-        trace("Data Connection  :   ")
 
-        localConnection = new RTCPeerConnection(servers, pcConstraint);
-        sendChannel = localConnection.createDataChannel('sendDataChannel', dataConstraint);
+        // New RTC Peer Connection
+        localPeerConnection = new RTCPeerConnection(rtcConfiguration);
 
-        localConnection.onicecandidate = function (event) {
+        // New Data Channel
+        rtcDataChannel = localPeerConnection.createDataChannel('PeerToPeer', rtcDataChannelOptions);
+
+        // Candidate Event
+        localPeerConnection.onicecandidate = function (event) {
             if (event.candidate) {
-                remoteConnection.addIceCandidate(
+
+                // Remote ICE
+                remotePeerConnection.addIceCandidate(
                     event.candidate
-                ).then(function () { trace("on") });
+                ).then(function () {
+                    trace("on")
+                });
             };
         }
 
-        remoteConnection = new RTCPeerConnection(servers, pcConstraint);
-        remoteConnection.ondatachannel = function (event) {
-            receiveChannel = event.channel;
-            receiveChannel.onmessage = function (e) {
+        // New RTC Peer Connection with Remote
+        remotePeerConnection = new RTCPeerConnection(rtcConfiguration);
+
+        // Data Channel on Ready
+        remotePeerConnection.ondatachannel = function (event) {
+
+            // Channel Info
+            rtcRemoteDataChannel = event.channel;
+
+            // Channel On Message
+            rtcRemoteDataChannel.onmessage = function (e) {
                 trace('Received     :   ' + e.data);
                 callback("receive", e.data, e)
             };
         };
 
-        localConnection.createOffer()
+        // Create a Offer / Order
+        localPeerConnection
+            .createOffer()
             .then(descriptionOne);
 
+
+        // Offer Description
         function descriptionOne(description) {
 
-            localConnection.setLocalDescription(description);
-            remoteConnection.setRemoteDescription(description);
-            remoteConnection.createAnswer().then(descriptionTwo);
+            // Set local
+            localPeerConnection.setLocalDescription(description);
 
+            // Set Remote
+            remotePeerConnection.setRemoteDescription(description);
+
+            // Answer
+            remotePeerConnection.createAnswer().then(descriptionTwo);
+
+            // Log
             trace("One  :   ")
             trace(description)
         }
 
+        // Offer Description
         function descriptionTwo(description) {
-            remoteConnection.setLocalDescription(description);
-            localConnection.setRemoteDescription(description);
 
+            // Set Remote
+            remotePeerConnection.setLocalDescription(description);
+
+            // Set Local
+            localPeerConnection.setRemoteDescription(description);
+
+            // Log
             trace("Two  :   ")
             trace(description)
         }
     }
 
-    // Send Data
-    function sendPeer(who) {
+    // Send Channel Data
+    function sendChannel(who) {
+
         // Html Value
         var value = who.value;
         who.value = '';
@@ -70,8 +100,8 @@ Application.prototype.DataChannel = function (me, remote, callback) {
         // data send stringify
         var data = JSON.stringify(jsonData)
 
-        // Send Chanel Data
-        sendChannel.send(data);
+        // Send RTC Data Channel
+        rtcDataChannel.send(data);
 
         // Trace
         trace("Send Data    :   ");
@@ -89,7 +119,7 @@ Application.prototype.DataChannel = function (me, remote, callback) {
         var key = window.event.keyCode;
         // If the user has pressed enter
         if (key === 13) {
-            sendPeer(this);
+            sendChannel(this);
             return false;
         }
     }

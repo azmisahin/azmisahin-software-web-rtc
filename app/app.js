@@ -10,6 +10,34 @@
 
 'use strict';
 
+
+// ICE
+var interactiveConnectivityEstablishment
+
+// SDP
+var sessionDescriptionProtocol
+
+// STUN ( Session Traversal Utilities for NAT ) ->  Server ( GET Client Ip Address )
+// TURN ( Traversal Using Relays aoound NAT )   ->  Server ( Tempory Client Server )
+var rtcConfiguration;
+
+// Ref: https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createOffer
+var rtcOfferOptions = {
+    iceRestart: false,
+    offerToReceiveAudio: true,
+    offerToReceiveVideo: true,
+    voiceActivityDetection: true
+};
+
+// RTC Data Channel
+var rtcDataChannel;
+
+// Data Channel
+var rtcDataChannelOptions = null;
+
+// RTC Peer Connection
+var localPeerConnection;
+
 /**
  * Azmi ŞAHİN Web Application
  *

@@ -5,27 +5,6 @@
  */
 Application.prototype.PeerConnection = function (mediaStream) {
 
-    // ICE
-    var interactiveConnectivityEstablishment
-
-    // SDP
-    var sessionDescriptionProtocol
-
-    // STUN ( Session Traversal Utilities for NAT ) ->  Server ( GET Client Ip Address )
-    // TURN ( Traversal Using Relays aoound NAT )   ->  Server ( Tempory Client Server )
-    let rtcConfiguration;
-
-    // Ref: https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/createOffer
-    let rtcOfferOptions = {
-        iceRestart: false,
-        offerToReceiveAudio: false,
-        offerToReceiveVideo: true,
-        voiceActivityDetection: true
-    };
-
-    // Video Conferance
-    let localPeerConnection;
-
     // New Conferance
     localPeerConnection = new RTCPeerConnection(rtcConfiguration);
 
@@ -35,7 +14,10 @@ Application.prototype.PeerConnection = function (mediaStream) {
         // A candidate message Event. 
         trace("iceCandidate             :   " + event);
 
+        // Targer
         const targetConnection = event.target;
+
+        // Candidate Options
         const candidateInitDict = event.candidate;
 
         if (candidateInitDict) {
@@ -89,7 +71,7 @@ Application.prototype.PeerConnection = function (mediaStream) {
 
     // Set Session Description
     function rtcSessionDescriptionInit(description) {
-        SDP = description.sdp;
+        sessionDescriptionProtocol = description.sdp;
         trace("Session  :   " + description.type);
         //trace("SDP      :   " + description.sdp);
     }
@@ -99,5 +81,3 @@ Application.prototype.PeerConnection = function (mediaStream) {
         trace("Session  :   " + error);
     }
 }
-
-let SDP;
