@@ -1,0 +1,34 @@
+{
+  "name": "azmisahin-software-web-rtc",
+  "version": "1.0.0",
+  "description": "Web Real-Time Communications",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azmisahin/azmisahin-software-web-rtc.git"
+  },
+  "keywords": [
+    "web",
+    "rtc",
+    "signal",
+    "peer",
+    "data",
+    "stream",
+    "channel",
+    "audio",
+    "video",
+    "chat"
+  ],
+  "author": "azmisahin@outlook.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/azmisahin/azmisahin-software-web-rtc/issues"
+  },
+  "homepage": "https://github.com/azmisahin/azmisahin-software-web-rtc#readme",
+  "dependencies": {
+    "node-static": "^0.7.11"
+  }
+}

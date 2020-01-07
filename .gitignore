@@ -2,3 +2,7 @@
 
 # Visual Studio önbellek / seçenekler dizini
 .vs/
+
+# Nodejs Modul Bileşenleri
+package-lock.json
+node_modules
