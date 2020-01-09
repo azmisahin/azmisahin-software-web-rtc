@@ -6,3 +6,5 @@
 # Nodejs Modul Bileşenleri
 package-lock.json
 node_modules
+.deployment
+.vscode
