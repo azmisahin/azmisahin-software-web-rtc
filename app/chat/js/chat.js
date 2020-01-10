@@ -6,12 +6,15 @@ Application.prototype.Chat = function (form, input) {
 
     var websocket = io();
 
+    // Focus
+    document.getElementById(input).focus();
+
     // Form submit
     $(form).submit(function (e) {
         e.preventDefault(); // prevents page reloading
 
         // send to everyone.
-        websocket.emit('message', $(input).val());
+        websocket.emit('message', $("#"+input).val());
 
         // Send to everyone.
         websocket.emit('data', e);
