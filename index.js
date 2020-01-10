@@ -31,11 +31,15 @@ websocket.on('connection', client => {
 
   client.on('data', data => {
     console.log("Data : " + data)
+
+    // Except me(client). Send to everyone
     client.broadcast.emit('data', data);
   })
 
   client.on('message', function (message) {
     console.log('Message  : ' + client.id + " : " + message);
+    
+    // Send to everyone
     websocket.emit("message", message);
   });
 })

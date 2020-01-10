@@ -3,24 +3,38 @@
  * 
  */
 Application.prototype.Chat = function (form, input) {
-    $(function () {
 
-        var websocket = io();
+    var websocket = io();
 
-        $(form).submit(function (e) {
-            e.preventDefault(); // prevents page reloading
-            websocket.emit('message', $(input).val());
-            $(input).val('');
-            return false;
-        });
+    // Form submit
+    $(form).submit(function (e) {
+        e.preventDefault(); // prevents page reloading
 
-        function addMessage(htmlContent) {
-            $('#messages').append($('<li>').html(htmlContent));
-        }
+        // send to everyone.
+        websocket.emit('message', $(input).val());
 
-        // New Message Send
-        websocket.on('message', function (message) {
-            addMessage(websocket.id + " : " + "<b>" + message + "</b>");
-        });
+        // Send to everyone.
+        websocket.emit('data', e);
+
+        $(input).val('');
+        return false;
     });
+
+    // Add screen message
+    function addScreenMessage(htmlContent) {
+        $('#messages').append($('<li>').html(htmlContent));
+    }
+
+    // New Message Send
+    websocket.on('message', function (message) {
+        addScreenMessage(websocket.id + " : " + "<b>" + message + "</b>");
+    });
+
+    // New Data Send
+    websocket.on('data', function (data) {
+        console.log(data);
+    });
+
+    // Return Websocket
+    return websocket;
 }
