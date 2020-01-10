@@ -1,34 +1,41 @@
 'use strict';
 
-// Static Files
-var nodeStatic = require('node-static');
+// Required
+var express = require('express')
+var http = require('http')
+var socket = require('socket.io')
 
-// Http Server
-var http = require('http');
+// Define
+var port = process.env.PORT || 3000
+var app = express()
+var server = http.createServer(app)
+var websocket = socket(server)
 
-// Websocket
-var socketIO = require('socket.io');
+// Static File
+app.use(express.static('./'))
 
-// File Server
-var fileServer = new (nodeStatic.Server)();
+// Websocket Event
+websocket.on('connection', client => {
 
-// Server Listen
-var app = http.createServer(function (req, res) {
-  fileServer.serve(req, res);
-}).listen(process.env.PORT || 3000);
+  console.log("User Connect : " + client.id)
 
-// Websocket Initalize
-var io = socketIO.listen(app);
-
-// Socket Event
-io.on('connection', client => {
-  client.on('event', data => {
-
-  });
+  // Disconnect Event
   client.on('disconnect', () => {
+    console.log("User Disconnect  : " + client.id)
+  })
 
-  });
+  client.on('event', data => {
+    console.log("Event  : " + data)
+    websocket.emit('event', data)
+  })
   client.on('data', data => {
+    console.log("Data : " + data)
     client.broadcast.emit('data', data);
-  });
-});
+  })
+
+})
+
+// Server Listener
+server.listen(port, () => {
+  console.log("listening on *:" + port)
+})
