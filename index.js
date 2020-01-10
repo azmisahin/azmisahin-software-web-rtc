@@ -28,11 +28,15 @@ websocket.on('connection', client => {
     console.log("Event  : " + data)
     websocket.emit('event', data)
   })
+
   client.on('data', data => {
     console.log("Data : " + data)
     client.broadcast.emit('data', data);
   })
 
+  client.on('message', function (msg) {
+    console.log('Message  : ' + client.id + " : " + msg);
+  });
 })
 
 // Server Listener
