@@ -4,12 +4,23 @@
  */
 Application.prototype.Chat = function (form, input) {
     $(function () {
-        var socket = io();
+
+        var websocket = io();
+
         $(form).submit(function (e) {
             e.preventDefault(); // prevents page reloading
-            socket.emit('message', $(input).val());
+            websocket.emit('message', $(input).val());
             $(input).val('');
             return false;
+        });
+
+        function addMessage(htmlContent) {
+            $('#messages').append($('<li>').html(htmlContent));
+        }
+
+        // New Message Send
+        websocket.on('message', function (message) {
+            addMessage(websocket.id + " : " + "<b>" + message + "</b>");
         });
     });
 }

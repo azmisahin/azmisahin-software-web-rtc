@@ -95,8 +95,12 @@ video {
     float: left;
   }
 
-  
-  
+  /*Chat*/
+  #chat{
+    width: 90%;
+    background: #f0f8ff6e;
+    color: black;
+  }
   #chat form {
     background: #000;
     padding: 3px;

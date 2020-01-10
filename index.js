@@ -34,8 +34,9 @@ websocket.on('connection', client => {
     client.broadcast.emit('data', data);
   })
 
-  client.on('message', function (msg) {
-    console.log('Message  : ' + client.id + " : " + msg);
+  client.on('message', function (message) {
+    console.log('Message  : ' + client.id + " : " + message);
+    websocket.emit("message", message);
   });
 })
 
