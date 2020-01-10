@@ -4,6 +4,6 @@ wss = location.origin;
  * 
  */
 Application.prototype.Signal = function () {
-    var socket = io(wss);
+    var socket = io(wss, {path: "/"});
     return socket;
 }
