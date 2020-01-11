@@ -19,7 +19,8 @@ Application.prototype.Chat = function (form, input) {
         // Send to everyone.
         websocket.emit('data', e);
 
-        $(input).val('');
+        // Clear Data
+        $("#" + input).val('');
         return false;
     });
 
