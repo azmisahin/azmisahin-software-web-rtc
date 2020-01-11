@@ -7,21 +7,21 @@ exports.init = function (websocket) {
 
         // Disconnect Event
         client.on('disconnect', () => {
-            
+
             console.log("Disconnect :   " + client.id)
         })
 
         client.on('event', data => {
-            
+
             // trace
             console.log("Event      :   " + data)
-            
+
             // Send Everyone
             websocket.emit('event', data)
         })
 
         client.on('data', data => {
-            
+
             // trace
             console.log("Data       :   " + data)
 
