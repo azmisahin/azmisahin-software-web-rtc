@@ -65,67 +65,25 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
 
-  <!-- Cybotranik WUI -->
-  <script src="https://unpkg.com/cybotranik-wui"></script>
-  <script>wui || document.write('<script src="assets/lib/cybotranik-wui/js/cybotranik-wui.min.js"><\/script>')</script>
-
-  <!-- Cybotranik WUI Theme -->
-  <script>wui.Theme()</script>
-
 </head>
 
-<body class="align-center responsive bg">
-  <section id="what-is-web-rtc">
-    <header>
-      <h1>Web Real-Time Communications</h1>
-    </header>
-    <p>
-      It is a web application that realizes Real Time Communication requirements through a browser.
-    </p>
-  </section>
-  <main class="row center">
-   
-  </main>
-  <footer class="footer">
-    <figure class="width-5 float-right">
-      <a href="#what-is-web-rtc" title="What is Web RTC">
-        <img class="img-avatar" src="assets/theme/img/favicon.png"
-          alt="Azmi ŞAHİN | Senior Software Developer | Scientist | Instructor" />
-      </a>
-    </figure>
-  </footer>
+<body>
 
-  <!-- Design -->
+  <!-- Server Side -->
+  <script src="assets/lib/socket.io/socket.io.js"></script>
+
+  <!-- Application-->
+  <script type="text/javascript" src="assets/theme/js/app.js?v=1.0.0"></script>
   <link rel="stylesheet" href="assets/theme/css/app.css?v=1.0.0" />
 
-  <!-- Library-->
-  <script type="text/javascript" src="assets/lib/adapter/adapter.js?v=latest"></script>
+  <!-- Theme Library -->
+  <link href="assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="assets/lib/jquery/js/jquery.min.js"></script>
+  <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
 
-  <!-- Application -->
-  <script type="text/javascript" src="app/app.js?v=1.0.0"></script>
-
-  <!-- Module -->
-  <script type="text/javascript" src="app/stream/js/stream.js?v=1.0.0"></script>
-  <script>
-
-    // Application 
-    var app = new Application();
-
-    // Add Client Screen
-    app.addStreamScreen('me');
-
-    // Video Html Element
-    const video = document.querySelector('#video-me')
-
-    // Audio Html Element
-    const audio = document.querySelector('#audio-me')
-
-    // App Stream Strat
-    app.Stream(video, audio, function (mediaStream) {
-      // Trace
-      // trace(mediaStream)
-    });
-  </script>
+  <!-- Theme -->
+  <link rel="stylesheet" href="assets/theme/css/theme.css?v=1.0.0" />
+  <script type="text/javascript" src="assets/theme/js/theme.js?v=1.0.0"></script>
 
 </body>
 

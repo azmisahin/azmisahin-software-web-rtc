@@ -15,22 +15,29 @@ It is a web application that realizes Real Time Communication requirements throu
 The application's folder architecture design information.
 
 ```
-+-- app                         '	Web App.
++-- app                         '	Web Client App ( for browser )
 +-- assets                      '	Design assets.
 |   +-- lib                     '	Design Libraries.
+|   |   +-- adapter             '   WebRTC Cros Browser.
+|   |   +-- bootstrap           '   UI css Framework.
 |   |   +-- cybotranik-wui      '   Website html User Interface.
+|   |   +-- jquery              '   JavaScript Library.
+|   |   +-- socket.io           '   Real Time Web App Library.
 |   +-- theme                   '	Design theme kütüphaneleri.
 |   |   +-- css                 '	Design style.
 |   |   +-- js                  '	Design script.
 |   |   +-- img                 '	Pictures used in design.
-+-- media                       '	User documentation.
++-- src                         '	NodeJs server side source code.
 +-- .editorconfig               '	Determines consistent coding styles for everyone in the project.
 +-- .gitattributes              '	Defines git properties for different operating systems.
 +-- .gitignore                  '	Ignores uploading temporary files to the repository.
++-- .azure-pipelines.yml        '	Azure continuous integration pipeline configuration file.
 +-- .CODE_OF_CONDUCT.md         '	Participant Agreement Code of Conduct.
 +-- .CONTRIBUTING.md            '   How to contribute.
 +-- index.html                  '   Application home page.
-+-- LICENSE                     '   Application home page.
++-- index.js                    '   NodeJs server side start.
++-- LICENSE                     '   License information.
++-- package.json                '   NodeJs package information
 +-- README.md                   '   Project architecture features, installation guide.
 
 ```
