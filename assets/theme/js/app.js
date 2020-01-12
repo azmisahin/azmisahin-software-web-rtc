@@ -121,10 +121,16 @@ $("form").submit(function (e) {
 });
 
 
-// Socket Test
-wss = location.origin;
-//var websocket = io(wss, { path: "/" });
-var websocket = io();
+// Signal Server
+var signal = {
+    hostname: "https://azmisahin-software-web-rtc.azurewebsites.net:443",
+    options: {
+        path: "/socket.io",
+    }
+};
+
+// Websocket
+var websocket = io.connect(signal.hostname, signal.options);
 
 // Websocket Event
 websocket.on('connection', client => {
