@@ -67,7 +67,7 @@ Talk.prototype.AddScreenMessage = function (from, message, me) {
     html += "<h6 class='mt-0 mb-1 text-right font-weight-lighter'>" + user + "</h6>"
     html += "<h4 class='font-italic'>" + message + "</h4>"
     html += "</div>"
-    html += "<img src='/media/image/user/-1.jpg' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
+    html += "<img src='../../media/image/user/-1.jpg' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
     html += "</div>"
     html += "</div>"
     html += "<!-- / MESSAGE Me -->"
