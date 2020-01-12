@@ -11,25 +11,14 @@
 function TalkEvent() { }
 
 // Trace
-function trace(text) {
-    if (text[text.length - 1] === '\n') {
-        text = text.substring(0, text.length - 1);
-    }
-    if (window.performance) {
-        var now = (window.performance.now() / 1000).toFixed(3);
-        console.log(now + ': ' + text);
-    } else {
-        console.log(text);
-    }
+function trace(data) {
+    console.log(data);
 }
 
 /**
  * Signal
  */
-TalkEvent.prototype.Signal = function () {
-
-    var state;
-    var data;
+TalkEvent.prototype.Signal = function (callback) {
 
     // Signal Server
     var signal = {
@@ -40,40 +29,57 @@ TalkEvent.prototype.Signal = function () {
     };
 
     // Websocket
-    var websocket = io(signal.hostname, signal.options);
+    //socket = io();
+    socket = io(signal.hostname, signal.options);
+    TalkEvent.prototype.Socket = socket
 
-    // Websocket Connection
-    websocket.on('connection', client => {
-        console.log("connec")
-        state = "connection"
-        data = client
-        trace(state);trace(data)
+    socket.on('connection-response', function (data) {
 
-        $("#" + "message").prop("readonly", false)
+        trace("connection-response:"); trace(data);
+        $("#connection").html(data)
     });
 
-    // Websocket Disconnect Event
-    websocket.on('disconnect', client => {
-        state = "disconnect"
-        data = client
-        trace(state);trace(data)
+    socket.on('disconnect-response', function (data) {
 
-        $("#" + "message").prop("readonly", true)
+        trace("disconnect-response:"); trace(data);
+
+        close();
     });
 
-    // Websocket message Event
-    websocket.on('message', message => {
-        state = "message"
-        data = message
-        trace(state);trace(data)
+    socket.on('login-response', function (data) {
+
+        trace("login-response:"); trace(data);
+
+        open();
+
     });
 
-    // Websocket data Event
-    websocket.on('data', data => {
-        state = "data"
-        data = data
-        trace(state);trace(data)
+    socket.on('login-count-response', function (data) {
+
+        trace("login-count-response:"); trace(data);
+
     });
-    
-    return websocket;
+
+    socket.on('message-response', function (data) {
+
+        trace("message-response:"); trace(data);
+        callback(data)
+
+    });
+
+    // Open Message
+    function open() { $("#" + "message").prop("readonly", false) }
+
+    // Close Message
+    function close() { $("#" + "message").prop("readonly", true) }
+
+    // Login
+    var user = $.cookie("user")
+    socket.emit("login-request", user)
+
+    return socket;
+}
+
+TalkEvent.prototype.Send = function (data) {
+    this.Socket.emit("message", data);
 }
