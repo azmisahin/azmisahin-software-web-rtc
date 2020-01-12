@@ -1,6 +1,6 @@
 # Web Real-Time Communications
 
-[![Build Status](https://dev.azure.com/azmisahin-github/azmisahin-software-web-rtc/_apis/build/status/azmisahin-software-web-rtc-CI?branchName=master&jobName=Build)](https://dev.azure.com/azmisahin-github/azmisahin-software-web-rtc/_build)
+[![Build Status](https://dev.azure.com/azmisahin-github/azmisahin-software-web-rtc/_apis/build/status/azmisahin-software-web-rtc-CI?branchName=master)](https://dev.azure.com/azmisahin-github/azmisahin-software-web-rtc/_build)
 
 It is a web application that realizes Real Time Communication requirements through a browser.
 
