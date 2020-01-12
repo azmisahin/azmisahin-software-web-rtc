@@ -68,10 +68,14 @@ TalkEvent.prototype.Signal = function (callback) {
     });
 
     // Open Message
-    function open() { //$("#" + "message").prop("readonly", false) }
+    function open() {
+        //$("#" + "message").prop("readonly", false) 
+    }
 
     // Close Message
-    function close() { //$("#" + "message").prop("readonly", true) }
+    function close() {
+        //$("#" + "message").prop("readonly", true) 
+    }
 
     // Login
     var user = $.cookie("user")
