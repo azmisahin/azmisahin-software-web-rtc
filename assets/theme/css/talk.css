@@ -86,3 +86,11 @@
  .lh-100 { line-height: 1; }
  .lh-125 { line-height: 1.25; }
  .lh-150 { line-height: 1.5; }
+
+ 
+.bg-me{
+  background: #c5f7c5;;
+}
+.bg-remote{
+  background:white;
+}

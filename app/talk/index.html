@@ -72,6 +72,8 @@
     <a class="navbar-brand mr-auto mr-lg-0" href="#" title="Web RTC">
       <img src="../../assets/theme/img/favicon.png" alt="Web RTC" width="50">
     </a>
+    <span class="ml-md-auto">
+      <span class="badge badge-secondary" id="connection"></span>
   </nav>
   <main id="main" role="main" class="container"></main>
 
@@ -101,14 +103,21 @@
   <script type="text/javascript" src="../../assets/theme/js/talk.js?v=1.0.0"></script>
   <script>
     var talk = new Talk();
-    talk.Init("form", "main", "message");
+    function sendMessage(data) {
+      console.log(data);
+      talkEvent.Send(data);
+    }
+    function addScreenMessage(data) {
+      talk.AddScreenMessage(data.user, data.content, data.me);
+    }
+    talk.Init("form", "main", "message", sendMessage);
   </script>
 
   <!-- Application-->
   <script type="text/javascript" src="js/talk.js?v=1.0.0"></script>
   <script>
     var talkEvent = new TalkEvent();
-    var socket = talkEvent.Signal();
+    var socket = talkEvent.Signal(addScreenMessage);
   </script>
 </body>
 

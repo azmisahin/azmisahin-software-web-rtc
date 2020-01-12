@@ -17,7 +17,7 @@ function Talk() { }
  * @param {string} container Html Talk Container id
  * @param {string} input Form input id
  */
-Talk.prototype.Init = function (form, container, input) {
+Talk.prototype.Init = function (form, container, input, callback) {
 
     this.Form = form;
     this.Container = container;
@@ -25,7 +25,7 @@ Talk.prototype.Init = function (form, container, input) {
     this.User = $.cookie("user");
 
     // Disabled
-    $("#" + input).prop("readonly", true)
+    // $("#" + input).prop("readonly", true)
 
     // Form submit
     $(form).submit(function (e) {
@@ -35,6 +35,7 @@ Talk.prototype.Init = function (form, container, input) {
 
         // Get message
         var message = $("#" + input).val();
+        callback(message);
 
         // Clear
         $("#" + input).val('')
@@ -49,18 +50,22 @@ Talk.prototype.Init = function (form, container, input) {
  * @param {string} from User
  * @param {string} message Text Message
  */
-Talk.prototype.AddScreenMessage = function (from, message) {
+Talk.prototype.AddScreenMessage = function (from, message, me) {
 
     var user = from;
     var message = message;
+    var css = "bg-remote";
+    if (me) {
+        css = "bg-me"
+    }
 
     // Generate Mesage Html Element
     var html = "";
-    html += "<div class='me my-3 p-3 bg-white rounded shadow-sm'>"
+    html += "<div class='" + css + " my-3 p-3 rounded shadow-sm'>"
     html += "<div class='media'>"
     html += "<div class='media-body'>"
-    html += "<h5 class='mt-0 mb-1 text-right'>" + user + "</h5>"
-    html += "<span>" + message + "</span>"
+    html += "<h6 class='mt-0 mb-1 text-right font-weight-lighter'>" + user + "</h6>"
+    html += "<h4 class='font-italic'>" + message + "</h4>"
     html += "</div>"
     html += "<img src='/media/image/user/-1.jpg' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
     html += "</div>"
