@@ -25,7 +25,7 @@ Talk.prototype.Init = function (form, container, input, callback) {
     this.User = $.cookie("user");
 
     // Disabled
-    $("#" + input).prop("readonly", true)
+    // $("#" + input).prop("readonly", true)
 
     // Form submit
     $(form).submit(function (e) {
