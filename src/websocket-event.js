@@ -3,36 +3,23 @@ exports.init = function (websocket) {
     // Websocket Event
     websocket.on('connection', client => {
 
-        console.log("Connect        :   " + client.id)
+        client.broadcast.emit('connection', client);
 
         // Disconnect Event
         client.on('disconnect', () => {
 
-            console.log("Disconnect :   " + client.id)
+            websocket.emit('disconnect', client);
         })
 
-        client.on('event', data => {
-
-            // trace
-            console.log("Event      :   " + data)
-
-            // Send Everyone
-            websocket.emit('event', data)
-        })
-
-        client.on('data', data => {
-
-            // trace
-            console.log("Data       :   " + data)
+        // Data
+        client.on('data', function (data) {
 
             // Except me(client). Send to everyone
-            client.broadcast.emit('data', data);
+            websocket.emit('data', data);
         })
 
+        // Standart Message
         client.on('message', function (message) {
-
-            // trace
-            console.log('Message    :   ' + client.id + " : " + message);
 
             // Send to everyone
             websocket.emit("message", message);
