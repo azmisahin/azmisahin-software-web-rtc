@@ -24,24 +24,28 @@ TalkEvent.prototype.Signal = function (callback) {
     var signal = {
         hostname: "https://azmisahin-software-web-rtc.azurewebsites.net:443",
         options: {
+            transports: ['polling'],
+            forceNew: false,
             path: "/socket.io",
         }
     };
 
     // Websocket
     //socket = io();
-    socket = io(signal.hostname, signal.options);
+    socket = io(signal.options) //io(signal.hostname, signal.options);
     TalkEvent.prototype.Socket = socket
 
     socket.on('connection-response', function (data) {
 
         trace("connection-response:"); trace(data);
-        $("#connection").html(data)
+
     });
 
-    socket.on('disconnect-response', function (data) {
+    socket.on('disconnect-login-response', function (data) {
 
-        trace("disconnect-response:"); trace(data);
+        trace("disconnect-login-response:"); trace(data);
+
+        $("#connection").html(data)
 
         close();
     });
@@ -50,6 +54,8 @@ TalkEvent.prototype.Signal = function (callback) {
 
         trace("login-response:"); trace(data);
 
+        $("#connection").html(data.count)
+
         open();
 
     });
@@ -57,6 +63,8 @@ TalkEvent.prototype.Signal = function (callback) {
     socket.on('login-count-response', function (data) {
 
         trace("login-count-response:"); trace(data);
+
+        $("#connection").html(data)
 
     });
 
@@ -85,5 +93,7 @@ TalkEvent.prototype.Signal = function (callback) {
 }
 
 TalkEvent.prototype.Send = function (data) {
-    this.Socket.emit("message", data);
+    var user = $.cookie("user")
+    var model = { user: user, content: data}
+    this.Socket.emit("message", model);
 }

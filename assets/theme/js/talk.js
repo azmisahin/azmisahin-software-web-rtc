@@ -61,17 +61,32 @@ Talk.prototype.AddScreenMessage = function (from, message, me) {
 
     // Generate Mesage Html Element
     var html = "";
-    html += "<div class='" + css + " my-3 p-3 rounded shadow-sm'>"
-    html += "<div class='media'>"
-    html += "<div class='media-body'>"
-    html += "<h6 class='mt-0 mb-1 text-right font-weight-lighter'>" + user + "</h6>"
-    html += "<h4 class='font-italic'>" + message + "</h4>"
-    html += "</div>"
-    html += "<img src='../../media/image/user/-1.jpg' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
-    html += "</div>"
-    html += "</div>"
-    html += "<!-- / MESSAGE Me -->"
-    html += "";
+    if (me) {
+        html += "<div class='" + css + " my-3 p-3 rounded shadow-sm text-right'>"
+        html += "<div class='media'>"
+        html += "<div class='media-body'>"
+        html += "<h6 class='mt-0 mb-1  font-weight-lighter'>" + user + "</h6>"
+        html += "<h6 class='font-italic'>" + message + "</h6>"
+        html += "</div>"
+        html += "<img src='../../media/image/user/-1.jpg' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
+        html += "</div>"
+        html += "</div>"
+        html += "<!-- / MESSAGE Me -->"
+        html += "";
+    } else {
+        html += "<div class='" + css + " my-3 p-3 rounded shadow-sm text-left'>"
+        html += "<div class='media'>"
+        html += "<img src='../../media/image/user/-1.jpg' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
+        html += "<div class='media-body'>"
+        html += "<h6 class='mt-0 mb-1  font-weight-lighter'>" + user + "</h6>"
+        html += "<h6 class='font-italic'>" + message + "</h6>"
+        html += "</div>"
+        html += "</div>"
+        html += "</div>"
+        html += "<!-- / MESSAGE Me -->"
+        html += "";
+    }
+
 
     // Add a new Message
     let div = document.createElement('div');
@@ -89,6 +104,5 @@ Talk.prototype.AddScreenMessage = function (from, message, me) {
  * Scrool
  */
 Talk.prototype.Scrool = function () {
-    var objDiv = document.body;
-    objDiv.scrollTop = objDiv.scrollHeight;
+    window.scrollTo(0, document.body.scrollHeight);
 }
