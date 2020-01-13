@@ -31,8 +31,8 @@ TalkEvent.prototype.Signal = function (callback) {
     };
 
     // Websocket
-    //socket = io();
-    socket = io(signal.options) //io(signal.hostname, signal.options);
+    io(signal.hostname, signal.options);
+    
     TalkEvent.prototype.Socket = socket
 
     socket.on('connection-response', function (data) {
