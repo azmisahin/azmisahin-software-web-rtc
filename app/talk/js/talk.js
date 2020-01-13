@@ -31,9 +31,9 @@ TalkEvent.prototype.Signal = function (callback) {
     };
 
     // Websocket
-    io(signal.hostname, signal.options);
-    
-    TalkEvent.prototype.Socket = socket
+    var socket = io(signal.hostname, signal.options);
+
+    TalkEvent.prototype.Socket = socket;
 
     socket.on('connection-response', function (data) {
 
@@ -94,6 +94,6 @@ TalkEvent.prototype.Signal = function (callback) {
 
 TalkEvent.prototype.Send = function (data) {
     var user = $.cookie("user")
-    var model = { user: user, content: data}
+    var model = { user: user, content: data }
     this.Socket.emit("message", model);
 }
