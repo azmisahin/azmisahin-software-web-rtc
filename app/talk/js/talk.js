@@ -37,4 +37,4 @@ talkSignal.Event.on("new-connection-count", function (data) {
 });
 
 // Login Request
-talkSignal.socket.emit("login-request", talkUI.User)
+talkSignal.Socket.emit("login-request", talkUI.User)
