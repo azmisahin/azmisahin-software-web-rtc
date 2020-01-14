@@ -9,11 +9,6 @@
  * @since 2020
  * */
 
-// Trace
-function trace(data) {
-    console.log(data);
-}
-
 /**
  * Talk Signal
  */
@@ -33,9 +28,8 @@ function TalkSignal() {
     var event = new EventEmitter();
 
     // Websocket
-    //var socket = io(signal.hostname, signal.options);
-    var socket = io();
-
+    var socket = io(signal.hostname, signal.options);
+    
     socket.on('connection-response', function (data) {
 
         // Server On New Count
