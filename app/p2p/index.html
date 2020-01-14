@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr" dir="ltr" class="h-100">
+
+<head>
+
+  <!-- Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-147146676-1"></script>
+  <script>window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); }; gtag('js', new Date()); gtag('config', '147146676-1');</script>
+
+  <!-- Cache-->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+  <!-- Site Information -->
+  <title>Web Real-Time Communications</title>
+  <meta name="description"
+    content="It is a web application that realizes Real Time Communication requirements through a browser." />
+  <meta name="keywords" content="web, application, video, audio, file, transfer, app, browser." />
+
+  <!-- The Open Graph protocol -->
+  <meta property="og:title" content="Web Real-Time Communications" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://azmisahin.github.io/azmisahin-software-web-rtc/" />
+  <meta property="og:site_name" content="web-rtc" />
+  <meta property="og:description"
+    content="It is a web application that realizes Real Time Communication requirements through a browser." />
+  <meta property="og:image" content="https://azmisahin.github.io/azmisahin-software-web-rtc/preview.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="Web Real-Time Communications" />
+
+  <!-- Design-Development -->
+  <meta name="author" content="azmisahin.com" />
+  <meta name="generator" content="cybotranik-wui.github.io" />
+
+  <!-- License -->
+  <link rel="license" href="../../LICENSE" />
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="57x57" href="../../assets/theme/img/favicon/apple-icon-57x57.png" />
+  <link rel="apple-touch-icon" sizes="60x60" href="../../assets/theme/img/favicon/apple-icon-60x60.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="../../assets/theme/img/favicon/apple-icon-72x72.png" />
+  <link rel="apple-touch-icon" sizes="76x76" href="../../assets/theme/img/favicon/apple-icon-76x76.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="../../assets/theme/img/favicon/apple-icon-114x114.png" />
+  <link rel="apple-touch-icon" sizes="120x120" href="../../assets/theme/img/favicon/apple-icon-120x120.png" />
+  <link rel="apple-touch-icon" sizes="144x144" href="../../assets/theme/img/favicon/apple-icon-144x144.png" />
+  <link rel="apple-touch-icon" sizes="152x152" href="../../assets/theme/img/favicon/apple-icon-152x152.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="../../assets/theme/img/favicon/apple-icon-180x180.png" />
+  <link rel="icon" type="image/png" sizes="192x192" href="../../assets/theme/img/favicon/android-icon-192x192.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../../assets/theme/img/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="../../assets/theme/img/favicon/favicon-96x96.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="../../assets/theme/img/favicon/favicon-16x16.png" />
+  <link rel="icon" href="../../assets/theme/img/favicon/favicon.ico" />
+
+  <!-- PWA -->
+  <link rel="manifest" href="../../assets/theme/manifest.json" />
+  <meta name="msapplication-config" content="assets/theme/browserconfig.xml" />
+  <meta name="theme-color" content="#ffffff" />
+  <meta name="msapplication-navbutton-color" content="#ffffff" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+
+</head>
+
+<body class="bg-light d-flex flex-column h-100">
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm">
+    <a class="navbar-brand mr-auto mr-lg-0" href="#" title="Web RTC">
+      <img src="../../assets/theme/img/webrtc.png" alt="Web RTC" width="50">
+    </a>
+    <span class="ml-md-auto">
+      <span class="badge badge-secondary" id="connection"></span>
+  </nav>
+  <main id="main" role="main" class="container"></main>
+
+  <footer class="footer mt-auto py-3 fixed-bottom navbar-dark bg-dark">
+    <div class="container">
+      <form>
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <a href="https://github.com/azmisahin" target="_blank" title="Azmi ŞAHİN">
+                <img height="25" src="../../assets/theme/img/favicon.png" alt="Azmi ŞAHİN" />
+              </a>
+            </div>
+          </div>
+          <input id="message" name="message" type="text" class="form-control" autofocus
+            placeholder="Type your message and press enter to send." aria-label="message"
+            aria-describedby="addon-wrapping">
+        </div>
+      </form>
+    </div>
+  </footer>
+
+  <!-- Server Side -->
+  <script src="../../assets/lib/socket.io/socket.io.js"></script>
+
+  <!-- Theme Library -->
+  <link href="../../assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="../../assets/lib/jquery/js/jquery.min.js"></script>
+  <script src="../../assets/lib/jquery/js/jquery.cookie.js"></script>
+  <script src="../../assets/lib/bootstrap/js/bootstrap.min.js"></script>
+
+  <!-- Extention -->
+  <script type="text/javascript" src="../event.emiter.js"></script>
+
+  <!-- Theme -->
+  <link rel="stylesheet" href="../../assets/theme/css/talk.css?v=1.0.0" />
+  <script type="text/javascript" src="../../assets/theme/js/talk.ui.js?v=1.0.0"></script>
+
+  <!-- Application-->
+  <script type="text/javascript" src="js/p2p.signal.js?v=1.0.0"></script>
+  <script type="text/javascript" src="js/p2p.js?v=1.0.0"></script>
+
+</body>
+
+</html>
