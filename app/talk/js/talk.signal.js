@@ -18,7 +18,7 @@ function TalkSignal() {
     var signal = {
         hostname: "https://azmisahin-software-web-rtc.azurewebsites.net:443",
         options: {
-            transports: ['polling'],
+            transports: ['websocket','polling'],
             forceNew: false,
             path: "/socket.io",
         }
