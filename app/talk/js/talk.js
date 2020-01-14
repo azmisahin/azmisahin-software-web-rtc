@@ -36,5 +36,18 @@ talkSignal.Event.on("new-connection-count", function (data) {
     $("#connection").html(data)
 });
 
+var userFlag = ""
+var userCityName = ""
+var userLocation = ""
+geoip2.city(function (location) {
+
+    countryIsoCode = location.country.iso_code
+    userCityName = location.city.names.en;
+    userLocation = location.location;
+    userFlag = "https://www.countryflags.io/" + countryIsoCode + "/shiny/64.png";
+
+}, function (error) { });
+
 // Login Request
 talkSignal.Socket.emit("login-request", talkUI.User)
+
