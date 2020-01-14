@@ -105,27 +105,17 @@
   <script src="../../assets/lib/jquery/js/jquery.cookie.js"></script>
   <script src="../../assets/lib/bootstrap/js/bootstrap.min.js"></script>
 
+  <!-- Extention -->
+  <script type="text/javascript" src="../event.emiter.js"></script>
+
   <!-- Theme -->
   <link rel="stylesheet" href="../../assets/theme/css/talk.css?v=1.0.0" />
-  <script type="text/javascript" src="../../assets/theme/js/talk.js?v=1.0.0"></script>
-  <script>
-    var talk = new Talk();
-    function sendMessage(data) {
-      console.log(data);
-      talkEvent.Send(data);
-    }
-    function addScreenMessage(data) {
-      talk.AddScreenMessage(data.user, data.content, data.me);
-    }
-    talk.Init("form", "main", "message", sendMessage);
-  </script>
+  <script type="text/javascript" src="../../assets/theme/js/talk.ui.js?v=1.0.0"></script>
 
   <!-- Application-->
+  <script type="text/javascript" src="js/talk.signal.js?v=1.0.0"></script>
   <script type="text/javascript" src="js/talk.js?v=1.0.0"></script>
-  <script>
-    var talkEvent = new TalkEvent();
-    var socket = talkEvent.Signal(addScreenMessage);
-  </script>
+
 </body>
 
 </html>

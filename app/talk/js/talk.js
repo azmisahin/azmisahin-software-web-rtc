@@ -8,92 +8,33 @@
  * @author Azmi SAHIN
  * @since 2020
  * */
-function TalkEvent() { }
 
-// Trace
-function trace(data) {
-    console.log(data);
-}
+// Initalize Talk UI
+var talkUI = new TalkUI("form", "main", "message");
 
-/**
- * Signal
- */
-TalkEvent.prototype.Signal = function (callback) {
+// Start handshake Signal Server
+var talkSignal = new TalkSignal();
 
-    // Signal Server
-    var signal = {
-        hostname: "https://azmisahin-software-web-rtc.azurewebsites.net:443",
-        options: {
-            transports: ['polling'],
-            forceNew: false,
-            path: "/socket.io",
-        }
-    };
+// UI a message entered.
+talkUI.Event.on("a-message-entered", function (message) {
 
-    // Websocket
-    var socket = io(signal.hostname, signal.options);
+    // Send a message to the signal server.
+    talkSignal.Send(talkUI.User, message);
+});
 
-    TalkEvent.prototype.Socket = socket;
+// Server On New Message
+talkSignal.Event.on("new-message", function (data) {
 
-    socket.on('connection-response', function (data) {
+    // Add screen message
+    talkUI.AddScreenMessage(data.user, data.content, data.me);
+});
 
-        trace("connection-response:"); trace(data);
+// Server On New Connection Count
+talkSignal.Event.on("new-connection-count", function (data) {
 
-    });
+    // Set Connection count
+    $("#connection").html(data)
+});
 
-    socket.on('disconnect-login-response', function (data) {
-
-        trace("disconnect-login-response:"); trace(data);
-
-        $("#connection").html(data)
-
-        close();
-    });
-
-    socket.on('login-response', function (data) {
-
-        trace("login-response:"); trace(data);
-
-        $("#connection").html(data.count)
-
-        open();
-
-    });
-
-    socket.on('login-count-response', function (data) {
-
-        trace("login-count-response:"); trace(data);
-
-        $("#connection").html(data)
-
-    });
-
-    socket.on('message-response', function (data) {
-
-        trace("message-response:"); trace(data);
-        callback(data)
-
-    });
-
-    // Open Message
-    function open() {
-        //$("#" + "message").prop("readonly", false) 
-    }
-
-    // Close Message
-    function close() {
-        //$("#" + "message").prop("readonly", true) 
-    }
-
-    // Login
-    var user = $.cookie("user")
-    socket.emit("login-request", user)
-
-    return socket;
-}
-
-TalkEvent.prototype.Send = function (data) {
-    var user = $.cookie("user")
-    var model = { user: user, content: data }
-    this.Socket.emit("message", model);
-}
+// Login Request
+talkSignal.socket.emit("login-request", talkUI.User)

@@ -8,24 +8,31 @@
  * @author Azmi SAHIN
  * @since 2020
  * */
-function Talk() { }
+function TalkUI() { }
 
 /**
- * Talk Initalize
- * 
- * @param {string} form Html form element id
- * @param {string} container Html Talk Container id
- * @param {string} input Form input id
+ * Talk UI User
  */
-Talk.prototype.Init = function (form, container, input, callback) {
+TalkUI.prototype.User = $.cookie("user");
 
-    this.Form = form;
-    this.Container = container;
-    this.Input = input;
-    this.User = $.cookie("user");
+/**
+* Talk UI
+* 
+* @param {string} form Html form element id
+* @param {string} container Html Talk Container id
+* @param {string} input Form input id
+*/
+function TalkUI(form, container, input) {
 
-    // Disabled
-    // $("#" + input).prop("readonly", true)
+    // Event Emitter
+    event = new EventEmitter();
+
+    // Signal Starter
+    function signal(type, data) {
+
+        // Event Start
+        event.emit(type, data);
+    }
 
     // Form submit
     $(form).submit(function (e) {
@@ -35,13 +42,18 @@ Talk.prototype.Init = function (form, container, input, callback) {
 
         // Get message
         var message = $("#" + input).val();
-        callback(message);
+
+        // new Signal
+        signal("a-message-entered", message);
 
         // Clear
         $("#" + input).val('')
 
         return false;
     });
+
+    TalkUI.prototype.Event = event;
+    TalkUI.prototype.Container = container;
 }
 
 /**
@@ -50,7 +62,7 @@ Talk.prototype.Init = function (form, container, input, callback) {
  * @param {string} from User
  * @param {string} message Text Message
  */
-Talk.prototype.AddScreenMessage = function (from, message, me) {
+TalkUI.prototype.AddScreenMessage = function (from, message, me) {
 
     var user = from;
     var message = message;
@@ -87,7 +99,6 @@ Talk.prototype.AddScreenMessage = function (from, message, me) {
         html += "";
     }
 
-
     // Add a new Message
     let div = document.createElement('div');
     div.innerHTML = html;
@@ -103,6 +114,6 @@ Talk.prototype.AddScreenMessage = function (from, message, me) {
 /**
  * Scrool
  */
-Talk.prototype.Scrool = function () {
+TalkUI.prototype.Scrool = function () {
     window.scrollTo(0, document.body.scrollHeight);
 }
