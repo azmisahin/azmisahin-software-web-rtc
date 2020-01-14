@@ -18,7 +18,7 @@ function TalkSignal() {
     var signal = {
         hostname: "https://azmisahin-software-web-rtc.azurewebsites.net:443",
         options: {
-            transports: ['websocket','polling'],
+            // transports: ['websocket', 'polling'],
             forceNew: false,
             path: "/socket.io",
         }
@@ -29,7 +29,7 @@ function TalkSignal() {
 
     // Websocket
     var socket = io(signal.hostname, signal.options);
-    
+
     socket.on('connection-response', function (data) {
 
         // Server On New Count
