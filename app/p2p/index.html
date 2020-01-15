@@ -75,7 +75,10 @@
     <span class="ml-md-auto">
       <span class="badge badge-secondary" id="connection"></span>
   </nav>
-  <main id="main" role="main" class="container"></main>
+  <main id="main" role="main" class="container">
+    <video id="selfView" playsinline autoplay muted></video>
+    <video id="remoteView" playsinline autoplay></video>
+  </main>
 
   <footer class="footer mt-auto py-3 fixed-bottom navbar-dark bg-dark">
     <div class="container">
@@ -113,6 +116,7 @@
   <script type="text/javascript" src="../../assets/theme/js/talk.ui.js?v=1.0.0"></script>
 
   <!-- Application-->
+  <script type="text/javascript" src="../signaling.channel.js"></script>
   <script type="text/javascript" src="js/p2p.signal.js?v=1.0.0"></script>
   <script type="text/javascript" src="js/p2p.js?v=1.0.0"></script>
 

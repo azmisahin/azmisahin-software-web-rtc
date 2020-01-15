@@ -13,6 +13,6 @@ app.use(express.static('./'))
 // Cros Origin Enable
 app.use(cors())
 
-exports.init = function(){
+exports.init = function () {
     return server
 }
