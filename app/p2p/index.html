@@ -73,11 +73,12 @@
       <img src="../../assets/theme/img/webrtc.png" alt="Web RTC" width="50">
     </a>
     <span class="ml-md-auto">
+      <button onclick="start()">Start</button>
       <span class="badge badge-secondary" id="connection"></span>
   </nav>
   <main id="main" role="main" class="container">
-    <video id="selfView" playsinline autoplay muted></video>
-    <video id="remoteView" playsinline autoplay></video>
+    <video width="300px" id="selfView" playsinline autoplay muted></video>
+    <video width="300px" id="remoteView" playsinline autoplay></video>
   </main>
 
   <footer class="footer mt-auto py-3 fixed-bottom navbar-dark bg-dark">
