@@ -10,20 +10,26 @@
  * */
 
 // Initalize Talk UI
-var talkUI = new TalkUI("form", "main", "message");
+const talkUI = new TalkUI("form", "main", "message");
+
+// Talk UI Event Emiter
+var talkUIEvent = talkUI.Event;
 
 // Signaling Channel
 const signaling = new SignalingChannel();
 
+// Signaling Event
+var signalingEvent = signaling.Event;
+
 // UI a message entered.
-talkUI.Event.on("a-message-entered", function (message) {
+talkUIEvent.on("a-message-entered", function (message) {
 
     // Send a message to the signal server.
     signaling.sendMessage(talkUI.User, message);
 });
 
 // Server On New Message
-signaling.Event.on("new-message", function (data) {
+signalingEvent.on("new-message", function (data) {
 
     var userCityName = ""
     var userLatitude = ""
@@ -35,11 +41,11 @@ signaling.Event.on("new-message", function (data) {
 });
 
 // Server On New Connection Count
-signaling.Event.on("new-connection-count", function (data) {
+signalingEvent.on("new-connection-count", function (data) {
 
     // Set Connection count
     $("#connection").html(data)
 });
 
 // Login Request
-signaling.Socket.emit("login-request", talkUI.User)
+signaling.connect(talkUI.User);

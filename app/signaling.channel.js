@@ -29,7 +29,7 @@ function SignalingChannel() {
 
     // Control localhost
     var isLocalHost = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "");
-    
+
     // Websocket
     var socket = isLocalHost == true ? io() : io(signal.hostname, signal.options);
 
@@ -69,12 +69,30 @@ function SignalingChannel() {
 
     });
 
+    /**
+     * Event Emiter
+     */
     SignalingChannel.prototype.Event = event;
+
+    /**
+     * Socket Event
+     */
     SignalingChannel.prototype.Socket = socket;
 }
 
 /**
+ * Connect user
+ * @param {string} user user string
+ */
+SignalingChannel.prototype.connect = function (user) {
+
+    // Login request
+    this.Socket.emit("login-request", user);
+}
+
+/**
  * Signaling Channel Send
+ * @param {json} model Json Object model
  */
 SignalingChannel.prototype.send = function (model) {
     this.Socket.emit('data', model)
@@ -82,6 +100,8 @@ SignalingChannel.prototype.send = function (model) {
 
 /**
  * Signaling Channel Send Message
+ * @param {string} from User
+ * @param {string} message string message
  */
 SignalingChannel.prototype.sendMessage = function (from, message) {
 
