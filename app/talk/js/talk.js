@@ -10,37 +10,42 @@
  * */
 
 // Initalize Talk UI
-var talkUI = new TalkUI("form", "main", "message");
+const talkUI = new TalkUI("form", "main", "message");
 
-// Start handshake Signal Server
-var talkSignal = new TalkSignal();
+// Talk UI Event Emiter
+var talkUIEvent = talkUI.Event;
+
+// Signaling Channel
+const signaling = new SignalingChannel();
+
+// Signaling Event
+var signalingEvent = signaling.Event;
 
 // UI a message entered.
-talkUI.Event.on("a-message-entered", function (message) {
+talkUIEvent.on("a-message-entered", function (message) {
 
     // Send a message to the signal server.
-    talkSignal.Send(talkUI.User, message);
+    signaling.sendMessage(talkUI.User, message);
 });
 
 // Server On New Message
-talkSignal.Event.on("new-message", function (data) {
+signalingEvent.on("new-message", function (data) {
+
+    var userCityName = ""
+    var userLatitude = ""
+    var userLongitude = ""
+    var userFlag = "../../media/image/user/-1.jpg"
 
     // Add screen message
-    talkUI.AddScreenMessage(data.user, data.content, data.me);
+    talkUI.AddScreenMessage(data.user, data.content, data.me, userCityName, userLatitude, userLongitude, userFlag);
 });
 
 // Server On New Connection Count
-talkSignal.Event.on("new-connection-count", function (data) {
+signalingEvent.on("new-connection-count", function (data) {
 
     // Set Connection count
     $("#connection").html(data)
 });
 
-var userFlag = "../../media/image/user/-1.jpg"
-var userCityName = ""
-var userLatitude = ""
-var userLongitude = ""
-
 // Login Request
-talkSignal.Socket.emit("login-request", talkUI.User)
-
+signaling.connect(talkUI.User);

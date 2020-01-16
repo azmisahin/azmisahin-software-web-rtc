@@ -4,12 +4,12 @@ exports.init = function (io) {
     function trace(data) {
         console.log(data);
     }
-    
+
     var connectionCount = 0;
     var user;
 
     io.on('connection', function (socket) {
-    
+
         // For each connected user.
         ++connectionCount
 
@@ -20,7 +20,7 @@ exports.init = function (io) {
         socket.broadcast.emit("login-count-response", connectionCount)
 
         //Trace
-        trace("connection start : " + socket.id + "[" + user +"]")
+        trace("connection start : " + socket.id + "[" + user + "]")
 
         // when the user disconnects.. perform this
         socket.on('disconnect', () => {
@@ -57,6 +57,10 @@ exports.init = function (io) {
 
             socket.emit("message-response", model)
 
+        })
+
+        socket.on('data', function (model) {
+            socket.broadcast.emit('data-response', model);
         })
     })
 

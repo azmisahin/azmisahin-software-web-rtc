@@ -73,9 +73,13 @@
       <img src="../../assets/theme/img/webrtc.png" alt="Web RTC" width="50">
     </a>
     <span class="ml-md-auto">
+      <button onclick="start()">Start</button>
       <span class="badge badge-secondary" id="connection"></span>
   </nav>
-  <main id="main" role="main" class="container"></main>
+  <main id="main" role="main" class="container">
+    <video width="300px" id="selfView" playsinline autoplay muted></video>
+    <video width="300px" id="remoteView" playsinline autoplay></video>
+  </main>
 
   <footer class="footer mt-auto py-3 fixed-bottom navbar-dark bg-dark">
     <div class="container">
@@ -113,8 +117,8 @@
   <script type="text/javascript" src="../../assets/theme/js/talk.ui.js?v=1.0.0"></script>
 
   <!-- Application-->
-  <script type="text/javascript" src="../signaling.channel.js?v=1.0.0"></script>
-  <script type="text/javascript" src="js/talk.js?v=1.0.0"></script>
+  <script type="text/javascript" src="../signaling.channel.js"></script>
+  <script type="text/javascript" src="js/p2p.js?v=1.0.0"></script>
 
 </body>
 

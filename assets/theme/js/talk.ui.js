@@ -61,8 +61,13 @@ function TalkUI(form, container, input) {
  * 
  * @param {string} from User
  * @param {string} message Text Message
+ * @param {bool} me Remote or Self
+ * @param {string} cityName User City Name
+ * @param {double} latitude Coordinat
+ * @param {double} longitude Coordinat
+ * @param {string} image Profile image
  */
-TalkUI.prototype.AddScreenMessage = function (from, message, me) {
+TalkUI.prototype.AddScreenMessage = function (from, message, me, cityName, latitude, longitude, image) {
 
     var user = from;
     var message = message;
@@ -78,12 +83,12 @@ TalkUI.prototype.AddScreenMessage = function (from, message, me) {
         html += "<div class='media'>"
         html += "<div class='media-body'>"
         html += "<h6 class='mt-0 mb-1  font-weight-lighter'>"
-        html += "<div class='text-left'>" + userCityName + userLatitude + ":" + userLongitude + "</div>"
+        html += "<div class='text-left'>" + cityName + latitude + ":" + longitude + "</div>"
         html += "<span>" + user + "</span>"
         html += "</h6>"
         html += "<h6 class='font-italic'>" + message + "</h6>"
         html += "</div>"
-        html += "<img src='" + userFlag + "' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
+        html += "<img src='" + image + "' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
         html += "</div>"
         html += "</div>"
         html += "<!-- / MESSAGE Me -->"
@@ -91,10 +96,10 @@ TalkUI.prototype.AddScreenMessage = function (from, message, me) {
     } else {
         html += "<div class='" + css + " my-3 p-3 rounded shadow-sm text-left'>"
         html += "<div class='media'>"
-        html += "<img src='" + userFlag + "' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
+        html += "<img src='" + image + "' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
         html += "<div class='media-body'>"
         html += "<h6 class='mt-0 mb-1  font-weight-lighter'>"
-        html += "<div class='text-right'>" + userCityName + userLatitude + ":" + userLongitude + "</div>"
+        html += "<div class='text-left'>" + cityName + latitude + ":" + longitude + "</div>"
         html += "<span>" + user + "</span>"
         html += "</h6>"
         html += "<h6 class='font-italic'>" + message + "</h6>"

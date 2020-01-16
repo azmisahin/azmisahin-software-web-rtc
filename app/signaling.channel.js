@@ -10,9 +10,9 @@
  * */
 
 /**
- * Talk Signal
+ * Signaling Channel
  */
-function TalkSignal() {
+function SignalingChannel() {
 
     // Signal Server
     var signal = {
@@ -27,8 +27,11 @@ function TalkSignal() {
     // Event Emiter
     var event = new EventEmitter();
 
+    // Control localhost
+    var isLocalHost = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "");
+
     // Websocket
-    var socket = io(signal.hostname, signal.options);
+    var socket = isLocalHost == true ? io() : io(signal.hostname, signal.options);
 
     socket.on('connection-response', function (data) {
 
@@ -66,11 +69,41 @@ function TalkSignal() {
 
     });
 
-    TalkSignal.prototype.Event = event;
-    TalkSignal.prototype.Socket = socket;
+    /**
+     * Event Emiter
+     */
+    SignalingChannel.prototype.Event = event;
+
+    /**
+     * Socket Event
+     */
+    SignalingChannel.prototype.Socket = socket;
 }
 
-TalkSignal.prototype.Send = function (from, message) {
+/**
+ * Connect user
+ * @param {string} user user string
+ */
+SignalingChannel.prototype.connect = function (user) {
+
+    // Login request
+    this.Socket.emit("login-request", user);
+}
+
+/**
+ * Signaling Channel Send
+ * @param {json} model Json Object model
+ */
+SignalingChannel.prototype.send = function (model) {
+    this.Socket.emit('data', model)
+}
+
+/**
+ * Signaling Channel Send Message
+ * @param {string} from User
+ * @param {string} message string message
+ */
+SignalingChannel.prototype.sendMessage = function (from, message) {
 
     var model = { user: from, content: message }
 
