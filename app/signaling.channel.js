@@ -28,7 +28,7 @@ function SignalingChannel() {
     var event = new EventEmitter();
 
     // Websocket
-    var socket = io(); //io(signal.hostname, signal.options);
+    var socket = io(signal.hostname, signal.options);
 
     socket.on('connection-response', function (data) {
 
