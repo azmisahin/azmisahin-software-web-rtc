@@ -27,8 +27,11 @@ function SignalingChannel() {
     // Event Emiter
     var event = new EventEmitter();
 
+    // Control localhost
+    var isLocalHost = (location.hostname === "localhost" || location.hostname === "127.0.0.1" || location.hostname === "");
+    
     // Websocket
-    var socket = io(signal.hostname, signal.options);
+    var socket = isLocalHost == true ? io() : io(signal.hostname, signal.options);
 
     socket.on('connection-response', function (data) {
 
