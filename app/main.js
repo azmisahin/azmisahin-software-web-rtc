@@ -9,11 +9,11 @@
  * @since 2020
  * */
 
-// Initalize Talk UI
-const talkUI = new TalkUI("form", "main", "message");
+// Initalize UI
+const ui = new UI("form", "main", "message");
 
-// Talk UI Event Emiter
-var talkUIEvent = talkUI.Event;
+// UI Event Emiter
+var uiEvent = ui.Event;
 
 // Signaling Channel
 const signaling = new SignalingChannel();
@@ -22,10 +22,10 @@ const signaling = new SignalingChannel();
 var signalingEvent = signaling.Event;
 
 // UI a message entered.
-talkUIEvent.on("a-message-entered", function (message) {
+uiEvent.on("a-message-entered", function (message) {
 
     // Send a message to the signal server.
-    signaling.sendMessage(talkUI.User, message);
+    signaling.sendMessage(ui.User, message);
 });
 
 // Server On New Message
@@ -37,7 +37,7 @@ signalingEvent.on("new-message", function (data) {
     var userFlag = "../../media/image/user/-1.jpg"
 
     // Add screen message
-    talkUI.AddScreenMessage(data.user, data.content, data.me, userCityName, userLatitude, userLongitude, userFlag);
+    ui.AddScreenMessage(data.user, data.content, data.me, userCityName, userLatitude, userLongitude, userFlag);
 });
 
 // Server On New Connection Count
@@ -48,4 +48,7 @@ signalingEvent.on("new-connection-count", function (data) {
 });
 
 // Login Request
-signaling.connect(talkUI.User);
+signaling.connect(ui.User);
+
+// peerConnection
+var peerConnection = new PeerConnection(signaling, selfView, remoteView);

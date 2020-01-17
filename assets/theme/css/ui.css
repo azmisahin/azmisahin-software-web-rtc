@@ -97,3 +97,18 @@
   border: solid 1px #d2eceb
 }
 main{margin-bottom: 100px;}
+
+video{    
+  width: 200px;
+  border-radius: 10px;
+}
+#selfView{
+  position: fixed;
+  top: 0;
+  left: 0
+}
+#remoteView{
+  position: fixed;
+  top: 0;
+  left: 200px;
+}
