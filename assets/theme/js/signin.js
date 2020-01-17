@@ -25,9 +25,9 @@ Authentication.prototype.SignIn = function (form, input) {
         var user = $("#" + input).val();
 
         // Action
-        $.cookie("user",user);
-        window.location.href = "app/talk";
-        
+        $.cookie("user", user);
+        window.location.href = "app";
+
         return false;
     });
 }

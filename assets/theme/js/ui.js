@@ -8,21 +8,21 @@
  * @author Azmi SAHIN
  * @since 2020
  * */
-function TalkUI() { }
+function UI() { }
 
 /**
- * Talk UI User
+ * UI User
  */
-TalkUI.prototype.User = $.cookie("user");
+UI.prototype.User = $.cookie("user");
 
 /**
-* Talk UI
+* UI
 * 
 * @param {string} form Html form element id
 * @param {string} container Html Talk Container id
 * @param {string} input Form input id
 */
-function TalkUI(form, container, input) {
+function UI(form, container, input) {
 
     // Event Emitter
     event = new EventEmitter();
@@ -52,12 +52,12 @@ function TalkUI(form, container, input) {
         return false;
     });
 
-    TalkUI.prototype.Event = event;
-    TalkUI.prototype.Container = container;
+    UI.prototype.Event = event;
+    UI.prototype.Container = container;
 }
 
 /**
- * Add a Screen talk message
+ * Add a Screen message
  * 
  * @param {string} from User
  * @param {string} message Text Message
@@ -67,7 +67,7 @@ function TalkUI(form, container, input) {
  * @param {double} longitude Coordinat
  * @param {string} image Profile image
  */
-TalkUI.prototype.AddScreenMessage = function (from, message, me, cityName, latitude, longitude, image) {
+UI.prototype.AddScreenMessage = function (from, message, me, cityName, latitude, longitude, image) {
 
     var user = from;
     var message = message;
@@ -125,6 +125,6 @@ TalkUI.prototype.AddScreenMessage = function (from, message, me, cityName, latit
 /**
  * Scrool
  */
-TalkUI.prototype.Scrool = function () {
+UI.prototype.Scrool = function () {
     window.scrollTo(0, document.body.scrollHeight);
 }
