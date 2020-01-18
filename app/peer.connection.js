@@ -34,69 +34,67 @@ function PeerConnection(signaling, selfView, remoteView) {
     // Peer Connection with configuration
     const pc = new RTCPeerConnection(configuration);
 
-    // Send any ice candidates to the other peer
+    // send any ice candidates to the other peer
     pc.onicecandidate = ({ candidate }) => signaling.send({ candidate });
 
-    // Peer Connection Create Offer
+    // let the "negotiationneeded" event trigger offer generation
     pc.onnegotiationneeded = async () => {
         try {
-            await pc.setLocalDescription(await pc.createOffer());
+            await pc.setLocalDescription();
             // send the offer to the other peer
-            signaling.send({ desc: pc.localDescription });
+            signaling.send({ description: pc.localDescription });
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
     };
 
-    // Peer Connection Ontrack
-    pc.ontrack = event => {
+    pc.ontrack = ({ track, streams }) => {
         // once media for a remote track arrives, show it in the remote video element
-        event.track.onunmute = () => {
+        track.onunmute = () => {
             // don't set srcObject again if it is already set.
             if (remoteView.srcObject) return;
-            remoteView.srcObject = event.streams[0];
+            remoteView.srcObject = streams[0];
         };
     };
 
-    // Peer connection start
-    async function start() {
+    // call start() to initiate
+    function start() {
+        addCameraMic();
+    }
+
+    // add camera and microphone to connection
+    async function addCameraMic() {
         try {
             // get a local stream, show it in a self-view and add it to be sent
             const stream = await navigator.mediaDevices.getUserMedia(constraints);
-            stream.getTracks().forEach((track) => pc.addTrack(track, stream));
+            for (const track of stream.getTracks()) {
+                pc.addTrack(track, stream);
+            }
             selfView.srcObject = stream;
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
-    };
+    }
 
-    // Server On New Message
-    signaling.Socket.on("data-response", async function (data) {
-        var desc = data.desc
-        var candidate = data.candidate
+    signaling.Event.on("data-response", async ({ data: { description, candidate } }) => {
         try {
-            if (desc) {
-                // if we get an offer, we need to reply with an answer
-                if (desc.type == 'offer') {
-                    await pc.setRemoteDescription(desc);
-                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                    stream.getTracks().forEach((track) => pc.addTrack(track, stream));
-                    await pc.setLocalDescription(await pc.createAnswer());
-                    signaling.send({ desc: pc.localDescription });
-                } else if (desc.type == 'answer') {
-                    await pc.setRemoteDescription(desc);
-                } else {
-                    console.log('Unsupported SDP type. Your code may differ here.');
+            if (description) {
+                await pc.setRemoteDescription(description);
+                // if we got an offer, we need to reply with an answer
+                if (description.type == 'offer') {
+                    if (!selfView.srcObject) {
+                        // blocks negotiation on permission (not recommended in production code)
+                        await addCameraMic();
+                    }
+                    await pc.setLocalDescription();
+                    signaling.send({ description: pc.localDescription });
                 }
             } else if (candidate) {
                 await pc.addIceCandidate(candidate);
             }
         } catch (err) {
-            console.log(err);
+            console.error(err);
         }
-        // Peer Connection
-        return this;
-    });
-
-    start();
+    }
+    );
 }
