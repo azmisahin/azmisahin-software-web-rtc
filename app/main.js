@@ -52,3 +52,6 @@ signaling.connect(ui.User);
 
 // peerConnection
 var peerConnection = new PeerConnection(signaling, selfView, remoteView);
+
+// start local and remote
+peerConnection.start();

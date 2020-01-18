@@ -97,4 +97,8 @@ function PeerConnection(signaling, selfView, remoteView) {
         }
     }
     );
+
+    return {
+        start: function () { start() }
+    }
 }
