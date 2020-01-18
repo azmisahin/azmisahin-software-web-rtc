@@ -22,10 +22,10 @@ const signaling = new SignalingChannel();
 var signalingEvent = signaling.Event;
 
 // UI a message entered.
-uiEvent.on("a-message-entered", function (message) {
+uiEvent.on("a-message-entered", function (message) {   
 
-    // Send a message to the signal server.
-    signaling.sendMessage(ui.User, message);
+    // Start a call peer to peer media stream.  // Send a message to the signal server.
+    message == "start" ? peerConnection.start() : signaling.sendMessage(ui.User, message);;
 });
 
 // Server On New Message
@@ -52,6 +52,3 @@ signaling.connect(ui.User);
 
 // peerConnection
 var peerConnection = new PeerConnection(signaling, selfView, remoteView);
-
-// start local and remote
-peerConnection.start();
