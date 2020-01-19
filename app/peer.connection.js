@@ -56,14 +56,14 @@ function PeerConnection(signaling, selfView, remoteView) {
         }
     };
 
-    pc.ontrack = event => {
+    pc.ontrack = ({track, streams}) => {
         // once media for a remote track arrives, show it in the remote video element
-        event.track.onunmute = () => {
-            // don't set srcObject again if it is already set.
-            if (remoteView.srcObject) return;
-            remoteView.srcObject = event.streams[0];
+        track.onunmute = () => {
+          // don't set srcObject again if it is already set.
+          if (remoteView.srcObject) return;
+          remoteView.srcObject = streams[0];
         };
-    };
+      };
 
     // call start() to initiate
     async function start() {
