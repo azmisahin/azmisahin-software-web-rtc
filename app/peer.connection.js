@@ -48,7 +48,7 @@ function PeerConnection(signaling, selfView, remoteView) {
     // let the "negotiationneeded" event trigger offer generation
     pc.onnegotiationneeded = async () => {
         try {
-            // await pc.setLocalDescription();
+            // create offer
             await pc.setLocalDescription(await pc.createOffer());
             // send the offer to the other peer
             signaling.send({ description: pc.localDescription });
@@ -75,6 +75,7 @@ function PeerConnection(signaling, selfView, remoteView) {
             for (const track of stream.getTracks()) {
                 pc.addTrack(track, stream);
             }
+            if (selfView.srcObject) return; // Fix
             selfView.srcObject = stream;
         } catch (err) {
             console.log(err);
@@ -88,8 +89,8 @@ function PeerConnection(signaling, selfView, remoteView) {
                 // if we get an offer, we need to reply with an answer
                 if (description.type == 'offer') {
                     await pc.setRemoteDescription(description);
-                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                    stream.getTracks().forEach((track) => pc.addTrack(track, stream));
+                    // blocks negotiation on permission
+                    await addCameraMic();
                     await pc.setLocalDescription(await pc.createAnswer());
                     signaling.send({ description: pc.localDescription });
                 } else if (description.type == 'answer') {
