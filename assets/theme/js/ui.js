@@ -166,7 +166,7 @@ UI.prototype.addMediaScreen = function (client) {
 
     html += "<div class='card'>"
     html += "<div class='embed-responsive embed-responsive-1by1'>"
-    html += "<video class='embed-responsive-item' id='" + client.id + "' playsinline autoplay muted></video>"
+    html += "<video class='embed-responsive-item' id='" + client.id + "' playsinline autoplay muted controls></video>"
     html += "</div>"
     html += "</div>"
 
