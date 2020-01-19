@@ -57,6 +57,31 @@ function UI(form, container, input) {
 }
 
 /**
+ * Add Html
+ * 
+ * @param {string} id wrapper id
+ * @param {element} div html element
+ */
+UI.prototype.addHtml = function (id, div) {
+
+    // Wrapper
+    var wrapper = document.createElement('div');
+    wrapper.className = "row"
+    wrapper.id = id;
+
+    // Main Apped
+    var main = document.getElementById(this.Container);
+    var element = document.getElementById(wrapper.id);
+    if (element) {
+        element.append(div);
+    } else {
+        main.append(wrapper);
+        var element = document.getElementById(wrapper.id);
+        element.append(div);
+    }
+}
+
+/**
  * Add a Screen message
  * 
  * @param {string} from User
@@ -67,7 +92,7 @@ function UI(form, container, input) {
  * @param {double} longitude Coordinat
  * @param {string} image Profile image
  */
-UI.prototype.AddScreenMessage = function (from, message, me, cityName, latitude, longitude, image) {
+UI.prototype.addMessageScreen = function (from, message, me, cityName, latitude, longitude, image) {
 
     var user = from;
     var message = message;
@@ -79,7 +104,7 @@ UI.prototype.AddScreenMessage = function (from, message, me, cityName, latitude,
     // Generate Mesage Html Element
     var html = "";
     if (me) {
-        html += "<div class='" + css + " my-3 p-3 rounded shadow-sm text-right'>"
+        html += "<div class='" + css + " text-right'>"
         html += "<div class='media'>"
         html += "<div class='media-body'>"
         html += "<h6 class='mt-0 mb-1  font-weight-lighter'>"
@@ -94,7 +119,7 @@ UI.prototype.AddScreenMessage = function (from, message, me, cityName, latitude,
         html += "<!-- / MESSAGE Me -->"
         html += "";
     } else {
-        html += "<div class='" + css + " my-3 p-3 rounded shadow-sm text-left'>"
+        html += "<div class='" + css + " text-left'>"
         html += "<div class='media'>"
         html += "<img src='" + image + "' height='50' class='ml-3 rounded-circle' alt='" + user + "'>"
         html += "<div class='media-body'>"
@@ -112,11 +137,11 @@ UI.prototype.AddScreenMessage = function (from, message, me, cityName, latitude,
 
     // Add a new Message
     let div = document.createElement('div');
+    div.className = "col-12 my-3 p-3 rounded shadow-sm"
     div.innerHTML = html;
 
-    // Main Apped
-    var main = document.getElementById(this.Container);
-    main.append(div);
+    // Add html
+    this.addHtml("talk", div)
 
     // Auto Scrool
     this.Scrool();
@@ -127,4 +152,29 @@ UI.prototype.AddScreenMessage = function (from, message, me, cityName, latitude,
  */
 UI.prototype.Scrool = function () {
     window.scrollTo(0, document.body.scrollHeight);
+}
+
+/**
+ * Add Media Screen
+ * 
+ * @param {socket} client Client informtion
+ */
+UI.prototype.addMediaScreen = function (client) {
+
+    // Generate Mesage Html Element
+    var html = "";
+
+    html += "<div class='card mb-3'>"
+    html += "<div class='embed-responsive embed-responsive-16by9'>"
+    html += "<video class='embed-responsive-item' id='" + client.id + "' playsinline autoplay muted></video>"
+    html += "</div>"
+    html += "</div>"
+
+    // Add a Media Screen
+    let div = document.createElement('div');
+    div.className = "col-3"
+    div.innerHTML = html;
+
+    // Add html
+    this.addHtml("media", div)
 }
