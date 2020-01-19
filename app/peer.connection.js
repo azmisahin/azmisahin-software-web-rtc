@@ -50,20 +50,20 @@ function PeerConnection(signaling, selfView, remoteView) {
         try {
             await pc.setLocalDescription(await pc.createOffer());
             // send the offer to the other peer
-            signaling.send({ desc: pc.localDescription });
+            signaling.send({ description: pc.localDescription });
         } catch (err) {
             console.error(err);
         }
     };
 
-    pc.ontrack = ({track, streams}) => {
+    pc.ontrack = ({ track, streams }) => {
         // once media for a remote track arrives, show it in the remote video element
         track.onunmute = () => {
-          // don't set srcObject again if it is already set.
-          if (remoteView.srcObject) return;
-          remoteView.srcObject = streams[0];
+            // don't set srcObject again if it is already set.
+            if (remoteView.srcObject) return;
+            remoteView.srcObject = streams[0];
         };
-      };
+    };
 
     // call start() to initiate
     async function start() {
@@ -78,20 +78,18 @@ function PeerConnection(signaling, selfView, remoteView) {
     }
 
     // Server On New Message
-    signaling.Socket.on("data-response", async function (data) {
-        var desc = data.desc
-        var candidate = data.candidate
+    signaling.Socket.on("data-response", async ({ description, candidate }) => {
         try {
-            if (desc) {
+            if (description) {
                 // if we get an offer, we need to reply with an answer
-                if (desc.type == 'offer') {
-                    await pc.setRemoteDescription(desc);
+                if (description.type == 'offer') {
+                    await pc.setRemoteDescription(description);
                     const stream = await navigator.mediaDevices.getUserMedia(constraints);
                     stream.getTracks().forEach((track) => pc.addTrack(track, stream));
                     await pc.setLocalDescription(await pc.createAnswer());
-                    signaling.send({ desc: pc.localDescription });
-                } else if (desc.type == 'answer') {
-                    await pc.setRemoteDescription(desc);
+                    signaling.send({ description: pc.localDescription });
+                } else if (description.type == 'answer') {
+                    await pc.setRemoteDescription(description);
                 } else {
                     console.log('Unsupported SDP type. Your code may differ here.');
                 }
