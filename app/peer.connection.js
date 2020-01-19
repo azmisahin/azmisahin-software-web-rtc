@@ -48,6 +48,7 @@ function PeerConnection(signaling, selfView, remoteView) {
     // let the "negotiationneeded" event trigger offer generation
     pc.onnegotiationneeded = async () => {
         try {
+            // create offer
             await pc.setLocalDescription(await pc.createOffer());
             // send the offer to the other peer
             signaling.send({ description: pc.localDescription });
@@ -60,17 +61,21 @@ function PeerConnection(signaling, selfView, remoteView) {
         // once media for a remote track arrives, show it in the remote video element
         track.onunmute = () => {
             // don't set srcObject again if it is already set.
+            // All client stream set
             if (remoteView.srcObject) return;
             remoteView.srcObject = streams[0];
         };
     };
 
-    // call start() to initiate
-    async function start() {
+    // add camera and microphone to connection
+    async function addCameraMic() {
         try {
             // get a local stream, show it in a self-view and add it to be sent
             const stream = await navigator.mediaDevices.getUserMedia(constraints);
-            stream.getTracks().forEach((track) => pc.addTrack(track, stream));
+            for (const track of stream.getTracks()) {
+                pc.addTrack(track, stream);
+            }
+            if (selfView.srcObject) return; // Fix
             selfView.srcObject = stream;
         } catch (err) {
             console.log(err);
@@ -84,8 +89,8 @@ function PeerConnection(signaling, selfView, remoteView) {
                 // if we get an offer, we need to reply with an answer
                 if (description.type == 'offer') {
                     await pc.setRemoteDescription(description);
-                    const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                    stream.getTracks().forEach((track) => pc.addTrack(track, stream));
+                    // blocks negotiation on permission
+                    await addCameraMic();
                     await pc.setLocalDescription(await pc.createAnswer());
                     signaling.send({ description: pc.localDescription });
                 } else if (description.type == 'answer') {
@@ -100,6 +105,11 @@ function PeerConnection(signaling, selfView, remoteView) {
             console.log(err);
         }
     });
+
+    // call start() to initiate
+    function start() {
+        addCameraMic();
+    }
 
     return {
         // Start Peer to Peer Connection
