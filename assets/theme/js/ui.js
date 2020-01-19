@@ -62,11 +62,11 @@ function UI(form, container, input) {
  * @param {string} id wrapper id
  * @param {element} div html element
  */
-UI.prototype.addHtml = function (id, div) {
+UI.prototype.addHtml = function (id, div, classes) {
 
     // Wrapper
     var wrapper = document.createElement('div');
-    wrapper.className = "row"
+    wrapper.className = classes
     wrapper.id = id;
 
     // Main Apped
@@ -137,11 +137,11 @@ UI.prototype.addMessageScreen = function (from, message, me, cityName, latitude,
 
     // Add a new Message
     let div = document.createElement('div');
-    div.className = "col-12 my-3 p-3 rounded shadow-sm"
+    div.className = "col-12 my-1 p-1 rounded shadow-sm"
     div.innerHTML = html;
 
     // Add html
-    this.addHtml("talk", div)
+    this.addHtml("talk", div, "row")
 
     // Auto Scrool
     this.Scrool();
@@ -164,17 +164,17 @@ UI.prototype.addMediaScreen = function (client) {
     // Generate Mesage Html Element
     var html = "";
 
-    html += "<div class='card mb-3'>"
-    html += "<div class='embed-responsive embed-responsive-16by9'>"
+    html += "<div class='card'>"
+    html += "<div class='embed-responsive embed-responsive-1by1'>"
     html += "<video class='embed-responsive-item' id='" + client.id + "' playsinline autoplay muted></video>"
     html += "</div>"
     html += "</div>"
 
     // Add a Media Screen
     let div = document.createElement('div');
-    div.className = "col-3"
+    div.className = "col-4"
     div.innerHTML = html;
 
     // Add html
-    this.addHtml("media", div)
+    this.addHtml("media", div, "row horizontal-scrool")
 }

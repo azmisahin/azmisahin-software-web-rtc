@@ -103,3 +103,9 @@ video{
   border-radius: 10px;
 }
 .card{background-color:transparent !important; border: none !important;}
+
+.horizontal-scrool{
+  display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+}
