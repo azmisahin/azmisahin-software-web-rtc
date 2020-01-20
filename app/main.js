@@ -51,7 +51,7 @@ signalingEvent.on("new-connection-count", function (data) {
 signaling.connect(ui.User);
 
 // peerConnection
-var peerConnection = new PeerConnection(signaling, function (stream) {
+var peerConnection = new PeerConnection(signaling, function ({ stream: stream }) {
     var view = document.getElementById(stream.id);
     // don't set srcObject again if it is already set.
     if (view) return;

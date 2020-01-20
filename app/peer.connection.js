@@ -60,7 +60,7 @@ function PeerConnection(signaling, callback) {
         // once media for a remote track arrives, show it in the remote video element
         track.onunmute = () => {
             // semote stream set
-            callback(streams[0]);
+            callback({ stream: streams[0] });
         };
     };
 
@@ -73,7 +73,7 @@ function PeerConnection(signaling, callback) {
                 pc.addTrack(track, stream);
             }
             // selft stream set
-            callback(stream);
+            callback({ stream: stream });
         } catch (err) {
             console.log(err);
         }
