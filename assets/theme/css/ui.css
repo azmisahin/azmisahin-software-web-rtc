@@ -101,6 +101,7 @@ main{margin-bottom: 100px;}
 video{    
   width: 100%;
   border-radius: 10px;
+  filter: drop-shadow(2px 4px 6px black)
 }
 .card{background-color:transparent !important; border: none !important;}
 
