@@ -13,10 +13,9 @@
  * Peer Connection
  * 
  * @param {SignalingChannel} signaling Signal Server
- * @param {HtmlElement} selfView Self Video
- * @param {HtmlElement} remoteView Remote Video
+ * @param {function(streams)} callback callback function
  */
-function PeerConnection(signaling, selfView, remoteView) {
+function PeerConnection(signaling, callback) {
 
     // Media Streams Contraints
     const constraints = {
@@ -60,10 +59,8 @@ function PeerConnection(signaling, selfView, remoteView) {
     pc.ontrack = ({ track, streams }) => {
         // once media for a remote track arrives, show it in the remote video element
         track.onunmute = () => {
-            // don't set srcObject again if it is already set.
-            // All client stream set
-            if (remoteView.srcObject) return;
-            remoteView.srcObject = streams[0];
+            // semote stream set
+            callback({ stream: streams[0] });
         };
     };
 
@@ -75,8 +72,8 @@ function PeerConnection(signaling, selfView, remoteView) {
             for (const track of stream.getTracks()) {
                 pc.addTrack(track, stream);
             }
-            if (selfView.srcObject) return; // Fix
-            selfView.srcObject = stream;
+            // selft stream set
+            callback({ stream: stream });
         } catch (err) {
             console.log(err);
         }

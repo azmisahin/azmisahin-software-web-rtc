@@ -50,9 +50,14 @@ signalingEvent.on("new-connection-count", function (data) {
 // Login Request
 signaling.connect(ui.User);
 
-// Add client
-ui.addMediaScreen({ id: "selfView" });
-ui.addMediaScreen({ id: "remoteView" });
-
 // peerConnection
-var peerConnection = new PeerConnection(signaling, selfView, remoteView);
+var peerConnection = new PeerConnection(signaling, function ({ stream: stream }) {
+    var view = document.getElementById(stream.id);
+    // don't set srcObject again if it is already set.
+    if (view) return;
+
+    // Add client
+    ui.addMediaScreen({ id: stream.id });
+    view = document.getElementById(stream.id);
+    view.srcObject = stream;
+});
