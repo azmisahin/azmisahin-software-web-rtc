@@ -24,8 +24,8 @@ var signalingEvent = signaling.Event;
 // UI a message entered.
 uiEvent.on("a-message-entered", function (message) {
 
-    // Start a call peer to peer media stream.  // Send a message to the signal server.
-    message == "start" ? peerConnection.start() : signaling.sendMessage(ui.User, message);;
+    // Send a message to the signal server.
+    signaling.sendMessage(ui.User, message);;
 });
 
 // Server On New Message
@@ -36,8 +36,8 @@ signalingEvent.on("new-message", function (data) {
     var userLongitude = ""
     var userFlag = "../../media/image/user/-1.jpg"
 
-    // Add screen message
-    ui.addMessageScreen(data.user, data.content, data.me, userCityName, userLatitude, userLongitude, userFlag);
+    // Start a call peer to peer media stream.        // Add screen message
+    data.content == "start" ? peerConnection.start() : ui.addMessageScreen(data.user, data.content, data.me, userCityName, userLatitude, userLongitude, userFlag);
 });
 
 // Server On New Connection Count
