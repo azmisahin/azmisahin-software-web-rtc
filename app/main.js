@@ -10,7 +10,7 @@
  * */
 
 // Initalize UI
-const ui = new UI("form", "main", "message");
+const ui = new UI("form", "main", "message", "live");
 
 // UI Event Emiter
 var uiEvent = ui.Event;

@@ -22,7 +22,7 @@ UI.prototype.User = $.cookie("user");
 * @param {string} container Html Talk Container id
 * @param {string} input Form input id
 */
-function UI(form, container, input) {
+function UI(form, container, input, live) {
 
     // Event Emitter
     event = new EventEmitter();
@@ -33,6 +33,12 @@ function UI(form, container, input) {
         // Event Start
         event.emit(type, data);
     }
+
+    // Live camera start
+    $("#" + live).click(function () {
+        // new Signal
+        signal("a-message-entered", "start");
+    });
 
     // Form submit
     $(form).submit(function (e) {
